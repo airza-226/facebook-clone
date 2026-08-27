@@ -1,0 +1,91 @@
+"use client";
+import { useEffect, useState } from "react";
+import { Search, Edit } from "lucide-react";
+import { useAuth } from "@/Context/AuthContext";
+import { listenToConversations } from "@/api/Chat/listenToConversation";
+import { Conversation } from "@/types";
+import { useRouter } from "next/navigation";
+import { ChatRender } from "../common/ChatRender";
+import SkeletonChat from "../cards/SkeletonChat";
+import { ChatItem } from "./ChatItem";
+
+interface ChatListProps {
+  activeConversationId: string | null;
+  onSelectConversation: (conv: Conversation) => void;
+  isLoading: boolean;
+}
+
+const ChatList = ({
+  activeConversationId,
+  onSelectConversation,
+  isLoading,
+}: ChatListProps) => {
+  const { firebaseUser } = useAuth();
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const router = useRouter();
+  const handleChatClick = (uid: string) => {
+    if (!firebaseUser) return;
+    router.push(`/User/HomePage/Chat/${uid}`);
+  };
+  useEffect(() => {
+    if (!firebaseUser) return;
+    const unsubscribe = listenToConversations(
+      firebaseUser.uid,
+      setConversations,
+    );
+    return () => unsubscribe();
+  }, [firebaseUser]);
+
+  return (
+    <aside
+      aria-label="Chat conversations"
+      className="w-full md:w-90 shrink-0 h-[calc(100vh-3.5rem)] bg-[#242526] border-r border-[#3a3b3c] flex flex-col rounded-xl"
+    >
+      <header className="flex items-center justify-between px-4 py-3 border-b border-[#3a3b3c]">
+        <h1 className="font-bold text-[1.25rem] text-gray-100 leading-tight">
+          Chats
+        </h1>
+        <button
+          aria-label="New message"
+          className="w-9 h-9 rounded-full bg-[#3a3b3c] hover:bg-[#4e4f50] flex items-center justify-center text-gray-300 hover:text-white transition-all duration-150 cursor-pointer"
+        >
+          <Edit size={16} />
+        </button>
+      </header>
+
+      <div className="px-3 py-2">
+        <div className="flex items-center gap-2 bg-[#3a3b3c] rounded-full px-3.5 py-2">
+          <Search size={15} className="text-gray-400 shrink-0" />
+          <input
+            type="text"
+            placeholder="Search Messenger"
+            aria-label="Search conversations"
+            className="flex-1 bg-transparent outline-none text-[0.875rem] text-gray-100 placeholder:text-gray-400"
+          />
+        </div>
+      </div>
+
+      <ul className={`${isLoading ? "space-y-1.5" : "space-y-1"} px-2`}>
+        <ChatRender<Conversation>
+          isLoading={isLoading}
+          skeleton={<SkeletonChat />}
+          conv={conversations}
+          renderItem={(conv) => (
+            <ChatItem
+              key={conv.id}
+              conv={conv}
+              currentUid={firebaseUser?.uid}
+              isActive={activeConversationId === conv.id}
+              onSelect={(selectedConv, otherUid) => {
+                onSelectConversation(selectedConv);
+                handleChatClick(otherUid);
+              }}
+            />
+          )}
+        />
+      </ul>
+    </aside>
+  );
+};
+
+export default ChatList;
