@@ -46,7 +46,10 @@ const FeedSection = ({ initialPosts,user }: FeedSectionProps) => {
           </>} data={posts} renderItem={(item) => { 
             const authorData = user[item.userId];
             return (
-            <PostCard data={item} user={authorData} key={item.id}/>)}} />
+              <div className="relative" key={item.id}>
+            <PostCard data={item} user={authorData} key={item.id}/>
+            </div>)}} 
+            />
       </section>
     </>
   );

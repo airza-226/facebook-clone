@@ -34,8 +34,7 @@ const PostCard = ({ data,user }: { data: Post,user:userData }) => {
       <header className="flex items-center justify-between px-4 pt-4 pb-2">
         <div className="flex items-center gap-3">
           {/* Avatar */}
-          <div className="relative w-10 h-10 shrink-0">
-            <Link href={`/User/UserProfile/${data.userId}`}>
+          <Link href={`/User/UserProfile/${data.userId}`} className="relative w-10 h-10 shrink-0">
             <Image
               src={user?.profilePicture || Profile}
               alt={`${data?.authorName}'s avatar`}
@@ -43,8 +42,7 @@ const PostCard = ({ data,user }: { data: Post,user:userData }) => {
               sizes="40px"
               className="rounded-full object-cover ring-2 ring-[#3a3b3c]"
             />
-            </Link>
-          </div>
+          </Link>
 
           {/* User info */}
           <div className="flex flex-col gap-0.5">

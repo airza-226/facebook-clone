@@ -31,7 +31,7 @@ const StoryCard = ({
       }
     >
       {/* ── Top image ── */}
-      <div className="h-[70%] w-full overflow-hidden bg-[#3a3b3c]">
+      <div className="h-[70%] w-full overflow-hidden bg-[#3a3b3c] relative">
         <Image
           src={imageSrc ?? Profile}
           alt={variant === "create" ? "Create story" : `${username}'s story`}

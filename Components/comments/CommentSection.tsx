@@ -51,7 +51,7 @@ const CommentSection = ({ postId }: CommentSectionProps) => {
       postId,
       userId: userProfile.uid,
       authorName: `${userProfile.firstName} ${userProfile.lastName}`,
-      authorPhoto: userProfile.profilePhoto,
+      authorPhoto: userProfile.profilePicture,
       content,
       likes: [],
       createdAt: new Date().toISOString(),
@@ -64,7 +64,7 @@ const CommentSection = ({ postId }: CommentSectionProps) => {
         postId,
         userId: userProfile.uid,
         authorName: optimisticComment.authorName,
-        authorPhoto: userProfile.profilePhoto,
+        authorPhoto: userProfile.profilePicture,
         content,
       })
       setComments((prev) =>

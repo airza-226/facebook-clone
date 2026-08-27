@@ -35,7 +35,7 @@ const CommentItem = ({ comment, onLike, onReply }: CommentItemProps) => {
 
   return (
     <div className="flex gap-2">
-      <div className="relative w-8 h-8 flex-shrink-0 mt-0.5">
+      <div className="relative w-8 h-8 shrink-0 mt-0.5">
         <Image
           src={Profile}
           alt={comment.authorName}

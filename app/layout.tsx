@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/layouts/Navbar";
@@ -12,11 +12,19 @@ const poppins = Poppins({
   display: "swap", 
 });
 
-export const metadata: Metadata = {
-  title: "Project-100",
-  description: "A social media platform",
+export const viewport: Viewport = {
   themeColor: "#18191a",
-  viewport: "width=device-width, initial-scale=1",
+  width: "device-width",
+  initialScale: 1,
+};
+
+
+export const metadata: Metadata = {
+  title: "facebook-clone",
+  description: "A social media platform",
+  icons: {
+    icon: "/icon.ico", 
+  },
 };
 
 export default function RootLayout({
@@ -53,13 +61,13 @@ export default function RootLayout({
           Skip to main content
         </a>
         <QueryProvider>
-        <AuthProvider>
-          <Navbar />
+          <AuthProvider>
+            <Navbar />
 
-          <main id="main-content" className="flex-1 bg-[#18191a] pt-14">
-            {children}
-          </main>
-        </AuthProvider>
+            <main id="main-content" className="flex-1 bg-[#18191a] pt-14">
+              {children}
+            </main>
+          </AuthProvider>
         </QueryProvider>
       </body>
     </html>
