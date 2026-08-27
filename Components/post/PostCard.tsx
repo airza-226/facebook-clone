@@ -13,10 +13,8 @@ import { Post, userData } from "@/types";
 import Link from "next/link";
 import { usePostActions } from "@/Hooks/usePostActions";
 import CommentSection from "../comments/CommentSection";
-import { useAuth } from "@/Context/AuthContext";
 
 const PostCard = ({ data,user }: { data: Post,user:userData }) => {
-  const {userProfile} = useAuth()
   const {likes,handleLike} = usePostActions(data)
   const [showComments,setShowComments] = useState<boolean>(false)
   return (
@@ -37,7 +35,7 @@ const PostCard = ({ data,user }: { data: Post,user:userData }) => {
           <Link href={`/User/UserProfile/${data.userId}`} className="relative w-10 h-10 shrink-0">
             <Image
               src={user?.profilePicture || Profile}
-              alt={`${data?.authorName}'s avatar`}
+              alt={`${user?.firstName} ${user?.lastName}'s avatar`}
               fill
               sizes="40px"
               className="rounded-full object-cover ring-2 ring-[#3a3b3c]"
