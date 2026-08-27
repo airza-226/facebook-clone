@@ -31,7 +31,7 @@ This project is an in-depth exploration of modern frontend architecture, state m
 - [x] Layout Stabilization & Flicker-free Skeleton Loaders
 
 **Up Next (TODO):**
-- [ ]  Nested Interactions
+- [ ] Nested Interactions
 - [ ] Bookmark Logic (Optimistic UI implementation)
 - [ ] Real-time Notifications
 - [ ] List Virtualization for infinite scrolling performance
