@@ -6,7 +6,7 @@ import { Post, userData } from '@/types'
 
 interface HeroProps {
   initialPosts: Post[]
-  user:userData[]
+user: Record<string, userData>;
 }
 
 const Hero = ({ initialPosts,user }:HeroProps) => {
