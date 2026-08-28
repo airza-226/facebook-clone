@@ -1,4 +1,3 @@
-export const dynamic = 'force-static';
 import Friends from "@/layouts/Friends";
 import React from "react";
 

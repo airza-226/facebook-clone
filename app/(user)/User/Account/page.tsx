@@ -1,5 +1,3 @@
-
-export const dynamic = 'force-static';
 import SettingsContainer from "@/Components/settings/SettingsContainer";
 import React from "react";
 

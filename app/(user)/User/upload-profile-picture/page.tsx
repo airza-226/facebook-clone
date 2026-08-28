@@ -1,4 +1,3 @@
-export const dynamic = 'force-static';
 import UploadProfilePicture from '@/layouts/UploadProfilePicture'
 import React from 'react'
 

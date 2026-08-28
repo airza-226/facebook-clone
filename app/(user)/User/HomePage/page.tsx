@@ -1,9 +1,8 @@
-export const dynamic = 'force-static';
 import Hero from "@/layouts/Hero"
 import React from 'react'
-import { fetchAllPosts } from "@/services/Post/fetchPost"
+import { fetchAllPosts } from "@/api/Post/fetchPost"
 import { Post, userData } from "@/types"
-import { fetchUserProfile } from "@/services/User/fetchUserProfile"
+import { fetchUserProfile } from "@/api/User/fetchUserProfile"
 
 const page = async() => {
   let initialPosts: Post[] = []
