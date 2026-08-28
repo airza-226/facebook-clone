@@ -72,8 +72,6 @@ const ChatContainer = ({ params }: ChatContainerProps) => {
     userFromConversation ?? (fetchedForUid === uid ? fetchedUser : null);
   const isLoadingUser =
     !userFromConversation && !!uid && fetchedForUid !== uid && !fetchError;
-    console.log("ChatContainer RENDER")
-    console.log(userFromConversation)
 
   return (
     <div className="w-full mt-2 flex">

@@ -61,7 +61,6 @@ const ChatWindow = ({ otherUser,isLoading }: ChatWindowProps) => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") handleSend();
   };
-  console.log("current user", getAuth().currentUser)
   return (
     <section
       aria-label="Chat conversation"
