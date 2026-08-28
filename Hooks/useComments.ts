@@ -1,4 +1,4 @@
-import { fetchCommentsByPost } from "@/api/comment/fetchComments"
+import { fetchCommentsByPost } from "@/services/comment/fetchComments"
 import { useQuery } from "@tanstack/react-query"
 
 export const useComments = (id:string) => {

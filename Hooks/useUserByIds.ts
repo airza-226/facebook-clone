@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchUsersByIds } from "@/api/User/fetchUserByIds";
+import { fetchUsersByIds } from "@/services/User/fetchUserByIds";
 
 export const useUsersByIds = (uids: string[]) => {
   return useQuery({

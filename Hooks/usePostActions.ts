@@ -1,5 +1,5 @@
 "use client";
-import { toggleLike } from "@/api/Post/likePost";
+import { toggleLike } from "@/services/Post/likePost";
 import { useAuth } from "@/Context/AuthContext";
 import { Post } from "@/types";
 import React, { useState } from "react";

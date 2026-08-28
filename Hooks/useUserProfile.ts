@@ -1,4 +1,4 @@
-import { fetchUserProfile } from "@/api/User/fetchUserProfile"
+import { fetchUserProfile } from "@/services/User/fetchUserProfile"
 import { useQuery } from "@tanstack/react-query"
 
 export const useUserProfile = (uid: string) => {

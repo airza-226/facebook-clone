@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Search, Edit } from "lucide-react";
 import { useAuth } from "@/Context/AuthContext";
-import { listenToConversations } from "@/api/Chat/listenToConversation";
+import { listenToConversations } from "@/services/Chat/listenToConversation";
 import { Conversation } from "@/types";
 import { useRouter } from "next/navigation";
 import { ChatRender } from "../common/ChatRender";

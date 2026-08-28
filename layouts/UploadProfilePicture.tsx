@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Camera, Check, RefreshCw, X } from "lucide-react";
 import DefaultProfile from "@/public/download (1).jpg"; 
 import { useAuth } from "@/Context/AuthContext";
-import { updateUserProfilePicture } from "@/api/User/updateProfilePicture";
+import { updateUserProfilePicture } from "@/services/User/updateProfilePicture";
 
 const UploadProfilePicture = () => {
   const router = useRouter();

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateUserBio } from "@/api/User/updateUserBio";
+import { updateUserBio } from "@/services/User/updateUserBio";
 import { userData } from "@/types";
 
 export const useUpdateBio = (uid: string) => {

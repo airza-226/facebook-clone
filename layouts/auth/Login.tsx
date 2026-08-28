@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 import Link from "next/link"
 import { Eye, EyeOff } from "lucide-react"
-import { handleLogin } from "@/api/Auth/Login"
+import { handleLogin } from "@/services/Auth/Login"
 import { useRouter } from "next/navigation"
 import { LoginData } from "@/types"
 

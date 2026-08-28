@@ -2,7 +2,7 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react"
 import { onAuthStateChanged, User } from "firebase/auth"
 import { auth } from "@/lib/firebase"
-import { fetchUserProfile } from "@/api/User/fetchUserProfile"
+import { fetchUserProfile } from "@/services/User/fetchUserProfile"
 import { userData,AuthContextType } from "@/types"
 
 

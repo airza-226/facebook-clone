@@ -1,6 +1,6 @@
 import { userData } from "@/types";
 import { useEffect, useState } from "react";
-import { fetchUserProfile } from "@/api/User/searchUsers";
+import { fetchUserProfile } from "@/services/User/searchUsers";
 
 export const useUserSearch = (query: string, delay: number = 500) => {
   const [results, setResults] = useState<userData[]>([]);

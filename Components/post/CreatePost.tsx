@@ -10,7 +10,7 @@ import {
 import Image from "next/image";
 import React, { useState, useRef, } from "react";
 import Profile from "@/public/download (1).jpg";
-import { submitPost } from "@/api/Post/createPost";
+import { submitPost } from "@/services/Post/createPost";
 import { useAuth } from "@/Context/AuthContext";
 
 type CreatePostProps = {

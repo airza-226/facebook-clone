@@ -5,7 +5,7 @@ import ChatWindow from "./ChatWindow";
 import ChatEmptyState from "./ChatEmptyState";
 import { userData, Conversation, userDataChat } from "@/types";
 import { useAuth } from "@/Context/AuthContext";
-import { fetchUserProfile } from "@/api/User/fetchUserProfile";
+import { fetchUserProfile } from "@/services/User/fetchUserProfile";
 import { useRouter } from "next/navigation";
 
 interface ChatContainerProps {

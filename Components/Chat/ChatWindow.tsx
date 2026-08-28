@@ -12,8 +12,8 @@ import {
   ThumbsUp,
 } from "lucide-react";
 import { useAuth } from "@/Context/AuthContext";
-import { listenToMessages } from "@/api/Chat/listenToMessages";
-import { sendMessage } from "@/api/Chat/sendMessages";
+import { listenToMessages } from "@/services/Chat/listenToMessages";
+import { sendMessage } from "@/services/Chat/sendMessages";
 import { getConversationId } from "@/utils/conversation";
 import { Message, userDataChat } from "@/types";
 import SkeletonChat from "../cards/SkeletonChat";

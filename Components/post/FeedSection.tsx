@@ -3,7 +3,7 @@ import { useState, useCallback } from "react";
 import StoryCard from "@/Components/feed/StoryCard";
 import PostCard from "./PostCard";
 import SkeletonPostCard from "../cards/SkeletonCard";
-import { fetchAllPosts } from "@/api/Post/fetchPost";
+import { fetchAllPosts } from "@/services/Post/fetchPost";
 import { Post, userData } from "@/types";
 import CreatePostSection from "../container/CreatePostContainer";
 import { DataRender } from "../common/DataRender";

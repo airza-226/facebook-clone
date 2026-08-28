@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchAllUsers } from "@/api/User/fetchAllUsers";
+import { fetchAllUsers } from "@/services/User/fetchAllUsers";
 
 export const useAllUsers = (currentUid: string) => {
   return useQuery({

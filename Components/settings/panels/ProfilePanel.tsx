@@ -5,8 +5,8 @@ import Profile from '@/public/download (1).jpg'
 import { useAuth } from '@/Context/AuthContext'
 import SettingsCard from '../ui/SettingsCard'
 import { useState, useRef } from 'react'
-import { updateUserProfile } from '@/api/User/updateUserProfile'
-import { uploadImage } from '@/api/upload/uploadImage'
+import { updateUserProfile } from '@/services/User/updateUserProfile'
+import { uploadImage } from '@/services/upload/uploadImage'
 interface ProfileFormData {
   firstName: string
   lastName: string

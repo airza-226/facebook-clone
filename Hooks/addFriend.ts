@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { sendFriendRequest } from "@/api/Friends/friendActions";
+import { sendFriendRequest } from "@/services/Friends/friendActions";
 import { userData } from "@/types";
 
 export const useSendFriendRequest = (currentUid: string) => {

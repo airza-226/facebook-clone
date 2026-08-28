@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { handleFormSubmit } from "@/api/Auth/SignUp";
+import { handleFormSubmit } from "@/services/Auth/SignUp";
 import Link from "next/link";
 import CustomDropDown from "@/Components/ui/CustomDropdown";
 import Gender from "@/Components/ui/GenderSelect";

@@ -1,5 +1,5 @@
 import { doc, updateDoc } from "firebase/firestore"
-import {uploadImage} from "@/api/upload/uploadImage"
+import {uploadImage} from "@/services/upload/uploadImage"
 import { db } from "@/lib/firebase"
 
 export const updateUserProfilePicture = async(id:string,file:File):Promise<string>=> {
