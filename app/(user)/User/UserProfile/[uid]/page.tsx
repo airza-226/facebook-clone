@@ -1,3 +1,8 @@
+export const dynamic = 'force-static';
+
+export function generateStaticParams() {
+  return [];
+}
 interface PageProps {
   params: Promise<{ uid: string }>;
 }

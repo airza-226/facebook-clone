@@ -1,3 +1,4 @@
+export const dynamic = 'force-static';
 import Hero from "@/layouts/Hero"
 import React from 'react'
 import { fetchAllPosts } from "@/api/Post/fetchPost"
