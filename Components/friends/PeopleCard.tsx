@@ -10,7 +10,7 @@ const styles = {
 
 interface PeopleCardProps {
   variant: keyof typeof styles;
-  uid:string
+  uid?:string
   name?: string;
   photoURL?: string | null;
   mutualFriends?: number;
