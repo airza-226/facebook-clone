@@ -1,10 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'res.cloudinary.com', 
+        hostname: 'res.cloudinary.com',
       },
       {
         protocol: 'https',
@@ -12,7 +14,6 @@ const nextConfig = {
       },
     ],
   },
-  output: 'standalone',
 };
 
 export default nextConfig;
