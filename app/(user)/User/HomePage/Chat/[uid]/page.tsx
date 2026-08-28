@@ -6,7 +6,7 @@ interface PageProps {
 }
 
 export function generateStaticParams() {
-  return [];
+  return [{ uid: 'default' }];
 }
 
 const page = ({ params }: PageProps) => {
