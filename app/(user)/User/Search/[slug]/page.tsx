@@ -1,10 +1,10 @@
-export const dynamic = 'force-static';
 
+
+import React, { Suspense } from 'react';
+import SearchResult from '../SearchResult';
 export function generateStaticParams() {
   return [];
 }
-import React, { Suspense } from 'react';
-import SearchResult from '../SearchResult';
 const Page = () => {
   return (
     <main className="mt-14 flex justify-center px-4 w-full">
