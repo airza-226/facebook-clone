@@ -22,7 +22,7 @@ const SideBarMenuSearch = () => {
       aria-label="Search filters"
       className="
         hidden md:flex flex-col gap-y-4
-        w-[280px] lg:w-[320px]
+        w-70 lg:w-[320px]
         px-4 py-5
         bg-[#242526]
         border-r border-y border-[#3a3b3c]
@@ -67,7 +67,7 @@ const SideBarMenuSearch = () => {
               group
             "
           >
-            <div className="relative w-9 h-9 flex-shrink-0">
+            <div className="relative w-9 h-9 shrink-0">
               <Image
                 src={Profile}
                 alt="All results"
@@ -141,7 +141,7 @@ const SideBarMenuSearch = () => {
                     group
                   "
                 >
-                  <span className="text-gray-400 group-hover:text-white transition-colors duration-150 flex-shrink-0">
+                  <span className="text-gray-400 group-hover:text-white transition-colors duration-150 shrink-0">
                     {cat.icon}
                   </span>
                   <span className="text-[0.9375rem] font-semibold leading-tight">

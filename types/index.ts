@@ -79,6 +79,13 @@ export type userData = {
   friends: string[];
   isPending:string[]
   createdAt: any;
+  work?:string
+  education?:string
+  hometown?:string
+  location?:string
+  relationshipStatus?:string
+  phoneNumber?:string
+  website?:string
 };
 
 export interface Message {

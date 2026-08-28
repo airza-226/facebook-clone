@@ -37,9 +37,9 @@ const CommentInput = ({ onSubmit, placeholder = "Write a comment...", autoFocus,
 
   return (
     <div className="flex items-center gap-2">
-      <div className={`relative flex-shrink-0 ${compact ? "w-7 h-7" : "w-9 h-9"}`}>
+      <div className={`relative shrink-0 ${compact ? "w-7 h-7" : "w-9 h-9"}`}>
         <Image
-          src={userProfile?.profilePhoto || Profile}
+          src={userProfile?.profilePicture || Profile}
           alt="Your profile"
           fill
           sizes={compact ? "28px" : "36px"}
@@ -76,7 +76,7 @@ const CommentInput = ({ onSubmit, placeholder = "Write a comment...", autoFocus,
           disabled={!value.trim() || submitting}
           aria-label="Send comment"
           className="
-            w-7 h-7 rounded-full flex-shrink-0
+            w-7 h-7 rounded-full shrink-0
             flex items-center justify-center
             text-[#4da3ff] hover:bg-[#4e4f50]
             disabled:text-gray-600 disabled:hover:bg-transparent

@@ -1,20 +1,23 @@
 import React from "react";
 import Image from "next/image";
-import { ChevronDown, Fish } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import DefaultProfile from "@/public/download (1).jpg";
 import { userData } from "@/types";
 import { useAuth } from "@/Context/AuthContext";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-const UserProfileCard = ({ data }: { data: userData }) => {
+type UserProfileCardProps = {
+  data: userData | null;
+};
+const UserProfileCard = ({ data }: UserProfileCardProps) => {
   const hasProfilePhoto = Boolean(
     data?.profilePicture && data.profilePicture.trim() !== "",
   );
-  const avatarSrc = hasProfilePhoto ? data.profilePicture : DefaultProfile;
+  const avatarSrc = hasProfilePhoto ? data?.profilePicture : DefaultProfile;
   const { firebaseUser } = useAuth();
-  const isPending = data.isPending?.includes(firebaseUser?.uid) ?? false;
+  const isPending = Boolean(firebaseUser?.uid && data?.isPending?.includes(firebaseUser.uid));
   const router = useRouter();
-  const isOwnProfile = firebaseUser?.uid === data.uid;
+  const isOwnProfile = firebaseUser?.uid === data?.uid;
   const handleChatClick = () => {
   if (!firebaseUser) {
     router.push('/Login');
@@ -25,10 +28,9 @@ const UserProfileCard = ({ data }: { data: userData }) => {
   return (
     <div className="md:flex justify-between items-center px-4 hidden">
       <div className="flex items-center gap-x-4">
-        {/* Container Image */}
         <div className="relative md:w-40 md:h-40 rounded-full overflow-hidden shrink-0">
           <Image
-            src={avatarSrc}
+            src={avatarSrc || DefaultProfile}
             alt={data?.profilePicture || "User Profile"}
             fill
             className="object-cover rounded-full"

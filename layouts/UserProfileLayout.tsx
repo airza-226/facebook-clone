@@ -20,7 +20,7 @@ import FriendListItem from "@/Components/friends/FriendsList";
 import SkeletonPostCard from "@/Components/cards/SkeletonCard";
 const navTabs = ["Posts", "About","Photos", "More"];
 interface UserProfileLayoutProps {
-  data: userData;
+  data: userData | null;
   post: Post[];
   isLoading: boolean;
 }
@@ -30,7 +30,7 @@ const UserProfileLayout = ({ data, post, isLoading }: UserProfileLayoutProps) =>
   const { firebaseUser } = useAuth();
   const router = useRouter();
   const isOwnProfile = firebaseUser?.uid === data?.uid;
-  const isPending = data.isPending?.includes(firebaseUser?.uid) ?? false;
+  const isPending = Boolean(firebaseUser?.uid && data?.isPending?.includes(firebaseUser.uid));
   const getValidImage = (photoUrl: string | undefined | null, fallback: any) => {
     if (!photoUrl || typeof photoUrl !== "string" || photoUrl.trim() === "") {
       return fallback;
@@ -61,10 +61,10 @@ const UserProfileLayout = ({ data, post, isLoading }: UserProfileLayoutProps) =>
         userAvatar={userAvatar}
         posts={post}
         isLoading={isLoading}
-        data={data}
+        data={data ?? null }
       />
     ),
-    About: <AboutPanel data={data} isOwnProfile={isOwnProfile} />,
+    About: <AboutPanel data={data ?? null} isOwnProfile={isOwnProfile} />,
     Photos: <PhotosPanel photos={userPhotos} isOwnProfile={isOwnProfile} />,
     More: <MorePanel />,
   };
@@ -130,7 +130,7 @@ const UserProfileLayout = ({ data, post, isLoading }: UserProfileLayoutProps) =>
         </div>
 
         <div className="hidden md:block mt-2.5">
-          <UserProfile data={data} />
+          <UserProfile data={data ?? null} />
         </div>
 
         <div className="w-full">

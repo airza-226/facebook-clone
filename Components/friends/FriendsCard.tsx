@@ -52,8 +52,8 @@ const FriendsCard = () => {
             className="flex gap-x-3 overflow-x-hidden scrollbar-hide scroll-smooth -mx-4 px-4 py-1"
           >
             {isLoading
-              ? [1, 2, 3, 4, 5, 6].map((_, i) => (
-                  <div key={i} className="shrink-0 w-35 sm:w-40">
+              ? Array.from({ length: 5 }).map((_, index) => (
+                  <div key={index} className="shrink-0">
                     <PeopleCardSkeleton variant="profile" />
                   </div>
                 ))

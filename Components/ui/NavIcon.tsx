@@ -1,6 +1,3 @@
-"use client"
-
-import React, { useState } from "react"
 import {
   HomeIcon,
   PlaySquare,
@@ -54,7 +51,7 @@ const NavIcon = ({ mode }: NavIconProps) => {
                 transition-colors duration-150
                 group
                 ${isActive
-                  ? "text-[#1877f2] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[3px] after:bg-[#1877f2] after:rounded-t-full"
+                  ? "text-[#1877f2] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.75 after:bg-[#1877f2] after:rounded-t-full"
                   : "text-gray-400 hover:bg-[#3a3b3c] hover:text-gray-200"
                 }
               `}
@@ -84,7 +81,7 @@ const NavIcon = ({ mode }: NavIconProps) => {
             text-gray-200 hover:text-white
             transition-all duration-150
             cursor-pointer
-            flex-shrink-0
+            shrink-0
           "
         >
           {item.icon}

@@ -10,7 +10,7 @@ interface PostsPanelProps {
   userAvatar: string | any;
   posts: Post[];
   isLoading: boolean;
-  data:userData[]
+  data:userData | null
 }
 
 const PostsPanel = ({ isOwnProfile,  posts, isLoading,data }: PostsPanelProps) => {
@@ -22,13 +22,10 @@ const PostsPanel = ({ isOwnProfile,  posts, isLoading,data }: PostsPanelProps) =
         isLoading={isLoading}
         data={posts}
         skeleton={
-          <>
-            <SkeletonPostCard />
-            <SkeletonPostCard />
-          </>
+          <SkeletonPostCard/>
         }
         emptyText={isOwnProfile ? "You haven't posted anything yet" : "No posts yet"}
-        renderItem={(item) => <PostCard key={item.id} data={item} user={data}/>}
+        renderItem={(item) => <PostCard key={item.id} data={item} user={data ?? null}/>}
       />
     </div>
   );

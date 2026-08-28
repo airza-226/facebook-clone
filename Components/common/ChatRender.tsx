@@ -7,7 +7,9 @@ export function ChatRender<T>({
   renderItem,
 }: DataChatProps<T>) {
   if (isLoading) {
-    return <>{skeleton} {skeleton} {skeleton} {skeleton} </>;
+    {Array.from({ length: 4 }).map((_, i) => (
+      <>{skeleton}</>
+    ))}
   }
   if (conv.length === 0) {
     return (

@@ -59,6 +59,7 @@ const FriendsPanel = ({ friends, isLoading, isOwnProfile }: FriendsPanelProps) =
           {filtered.map((friend) => (
             <FriendListItem
               key={friend.uid}
+              uid={friend.uid}
               name={`${friend.firstName} ${friend.lastName}`}
               photoURL={friend.profilePicture}
             />

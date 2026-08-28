@@ -21,7 +21,7 @@ const PrivacyPanel = () => {
                 {item.desc}
               </p>
             </div>
-            <button className="flex items-center gap-1.5 px-3 py-1.5 bg-[#3a3b3c] hover:bg-[#4e4f50] text-gray-200 text-[0.8125rem] font-semibold rounded-lg flex-shrink-0 transition-all duration-150 cursor-pointer">
+            <button className="flex items-center gap-1.5 px-3 py-1.5 bg-[#3a3b3c] hover:bg-[#4e4f50] text-gray-200 text-[0.8125rem] font-semibold rounded-lg shrink-0 transition-all duration-150 cursor-pointer">
               <Eye size={13} />
               {item.value}
             </button>

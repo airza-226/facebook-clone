@@ -18,7 +18,7 @@ const AccountPanel = () => {
         <SettingsCard key={field.id}>
           <div className="flex items-start justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-[#3a3b3c] flex items-center justify-center flex-shrink-0">
+              <div className="w-9 h-9 rounded-lg bg-[#3a3b3c] flex items-center justify-center shrink-0">
                 <field.icon size={16} className="text-gray-400" />
               </div>
               <div className="flex flex-col gap-0.5">
@@ -30,7 +30,7 @@ const AccountPanel = () => {
                 </p>
               </div>
             </div>
-            <button className="px-3 py-1.5 bg-[#3a3b3c] hover:bg-[#4e4f50] text-gray-200 text-[0.8125rem] font-semibold rounded-lg flex-shrink-0 transition-all duration-150 cursor-pointer">
+            <button className="px-3 py-1.5 bg-[#3a3b3c] hover:bg-[#4e4f50] text-gray-200 text-[0.8125rem] font-semibold rounded-lg shrink-0 transition-all duration-150 cursor-pointer">
               Edit
             </button>
           </div>
@@ -61,7 +61,7 @@ const AccountPanel = () => {
 
       <SettingsCard danger>
         <div className="flex items-start gap-3 mb-4">
-          <AlertTriangle size={20} className="text-red-400 flex-shrink-0 mt-0.5" />
+          <AlertTriangle size={20} className="text-red-400 shrink-0 mt-0.5" />
           <div>
             <h2 className="font-semibold text-[0.9375rem] text-red-400 leading-tight">
               Danger zone

@@ -8,7 +8,7 @@ import {
   X,
 } from "lucide-react";
 import Image from "next/image";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, } from "react";
 import Profile from "@/public/download (1).jpg";
 import { submitPost } from "@/api/Post/createPost";
 import { useAuth } from "@/Context/AuthContext";
@@ -26,12 +26,6 @@ const CreatePost = ({ OnClose, initialFile }: CreatePostProps) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  useEffect(() => {
-    if (initialFile) {
-      setSelectedFile(initialFile);
-      setPreviewUrl(URL.createObjectURL(initialFile));
-    }
-  }, [initialFile]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -103,11 +97,13 @@ const CreatePost = ({ OnClose, initialFile }: CreatePostProps) => {
             <h3 className="text-[0.9375rem] font-semibold text-gray-100 leading-tight">
               {userProfile?.firstName} {userProfile?.lastName || ""}
             </h3>
-            <button 
+            <button
               type="button"
               className="flex items-center gap-1 bg-[#3a3b3c] hover:bg-[#4e4f50] text-gray-200 rounded-md px-2 py-0.5 transition-colors duration-150 cursor-pointer"
             >
-              <span className="text-[0.75rem] font-semibold leading-none">Friends</span>
+              <span className="text-[0.75rem] font-semibold leading-none">
+                Friends
+              </span>
               <ChevronDown size={13} />
             </button>
           </div>
@@ -118,7 +114,7 @@ const CreatePost = ({ OnClose, initialFile }: CreatePostProps) => {
             value={content}
             onChange={(e) => setContent(e.target.value)}
             disabled={isPosting}
-            placeholder="What&apos;s on your mind?"
+            placeholder="What's on your mind?"
             aria-label="Post content"
             className="w-full min-h-25 bg-transparent outline-none resize-none text-[1.1875rem] font-normal text-gray-100 placeholder:text-gray-500 leading-relaxed"
           />
@@ -163,9 +159,24 @@ const CreatePost = ({ OnClose, initialFile }: CreatePostProps) => {
               >
                 <ImageIcon size={20} />
               </button>
-              <button type="button" className="p-2 rounded-full hover:bg-[#3a3b3c] text-blue-400"><Tag size={20} /></button>
-              <button type="button" className="p-2 rounded-full hover:bg-[#3a3b3c] text-yellow-400"><Smile size={20} /></button>
-              <button type="button" className="p-2 rounded-full hover:bg-[#3a3b3c] text-red-400"><MapPin size={20} /></button>
+              <button
+                type="button"
+                className="p-2 rounded-full hover:bg-[#3a3b3c] text-blue-400"
+              >
+                <Tag size={20} />
+              </button>
+              <button
+                type="button"
+                className="p-2 rounded-full hover:bg-[#3a3b3c] text-yellow-400"
+              >
+                <Smile size={20} />
+              </button>
+              <button
+                type="button"
+                className="p-2 rounded-full hover:bg-[#3a3b3c] text-red-400"
+              >
+                <MapPin size={20} />
+              </button>
             </div>
           </div>
         </div>

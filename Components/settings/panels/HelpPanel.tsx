@@ -16,7 +16,7 @@ const HelpPanel = () => {
           className="w-full flex items-center justify-between gap-4 px-5 py-4 bg-[#242526] border border-[#3a3b3c] hover:bg-[#2d2e2f] hover:border-[#4e4f50] rounded-xl text-left transition-all duration-150 cursor-pointer group"
         >
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-[#3a3b3c] group-hover:bg-[#4e4f50] flex items-center justify-center flex-shrink-0 transition-colors duration-150">
+            <div className="w-9 h-9 rounded-lg bg-[#3a3b3c] group-hover:bg-[#4e4f50] flex items-center justify-center shrink-0 transition-colors duration-150">
               <item.icon size={16} className="text-gray-400 group-hover:text-gray-200" />
             </div>
             <div className="flex flex-col gap-0.5">
@@ -28,7 +28,7 @@ const HelpPanel = () => {
               </p>
             </div>
           </div>
-          <ChevronRight size={18} className="text-gray-500 group-hover:text-gray-300 flex-shrink-0 transition-colors duration-150" />
+          <ChevronRight size={18} className="text-gray-500 group-hover:text-gray-300 shrink-0 transition-colors duration-150" />
         </button>
       ))}
     </section>

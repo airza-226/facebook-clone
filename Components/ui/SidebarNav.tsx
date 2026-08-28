@@ -3,7 +3,6 @@ import React from 'react'
 import Image from 'next/image'
 import Profile from "@/public/download (1).jpg"
 import { useAuth } from '@/Context/AuthContext'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
   const navLinks = [
     { label: "News Feed", href: "#" },
@@ -21,7 +20,7 @@ const SidebarNav = () => {
           aria-label="Left sidebar navigation"
           className="
             hidden md:flex flex-col gap-y-1
-            w-[260px] lg:w-[280px] xl:w-[300px]
+            w-65 lg:w-70 xl:w-75
             px-3 py-4
             fixed left-0 top-14
             h-[calc(100vh-3.5rem)]
@@ -39,7 +38,7 @@ const SidebarNav = () => {
             href="#"
             className="flex items-center gap-3 p-2 rounded-lg hover:bg-[#3a3b3c] active:bg-[#4e4f50] transition-colors duration-150 group"
           >
-            <div className="relative w-9 h-9 flex-shrink-0">
+            <div className="relative w-9 h-9 shrink-0">
               <Image
                 src={userProfile?.profilePicture || Profile}
                 alt="Your profile"

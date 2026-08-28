@@ -27,14 +27,18 @@ const ChatList = ({
     if (!firebaseUser) return;
     router.push(`/User/HomePage/Chat/${uid}`);
   };
-  useEffect(() => {
-    if (!firebaseUser) return;
-    const unsubscribe = listenToConversations(
-      firebaseUser.uid,
-      setConversations,
-    );
-    return () => unsubscribe();
-  }, [firebaseUser]);
+useEffect(() => {
+  const userId = firebaseUser?.uid;
+  if (!userId) return;
+
+  const unsubscribe = listenToConversations(userId, setConversations);
+
+  return () => {
+    if (typeof unsubscribe === 'function') {
+      unsubscribe();
+    }
+  };
+}, [firebaseUser?.uid]);
 
   return (
     <aside

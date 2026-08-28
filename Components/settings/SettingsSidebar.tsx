@@ -25,10 +25,10 @@ const SettingsSidebar = ({ activeSection, onSectionChange }: SettingsSidebarProp
   return (
     <aside
       aria-label="Settings navigation"
-      className="w-full md:w-[280px] lg:w-[300px] flex-shrink-0 md:sticky md:top-20 flex flex-col gap-y-1"
+      className="w-full md:w-70 lg:w-75 shrink-0 md:sticky md:top-20 flex flex-col gap-y-1"
     >
       <div className="flex items-center gap-3 px-3 py-3 bg-[#242526] border border-[#3a3b3c] rounded-xl mb-2">
-        <div className="relative w-11 h-11 flex-shrink-0">
+        <div className="relative w-11 h-11 shrink-0">
           <Image
             src={userProfile?.profilePicture || Profile}
             alt="Your profile"
@@ -71,7 +71,7 @@ const SettingsSidebar = ({ activeSection, onSectionChange }: SettingsSidebarProp
                   `}
                 >
                   <span className={`
-                    w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0
+                    w-8 h-8 rounded-lg flex items-center justify-center shrink-0
                     transition-colors duration-150
                     ${isActive ? 'bg-[#1877f2]/20 text-[#4da3ff]' : 'bg-[#3a3b3c] text-gray-400 group-hover:text-gray-200'}
                   `}>
@@ -97,7 +97,7 @@ const SettingsSidebar = ({ activeSection, onSectionChange }: SettingsSidebarProp
           onClick={handleSignOut}
           className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left hover:bg-red-500/10 border border-transparent hover:border-red-500/20 text-gray-400 hover:text-red-400 transition-all duration-150 cursor-pointer group"
         >
-          <span className="w-8 h-8 rounded-lg bg-[#3a3b3c] group-hover:bg-red-500/10 flex items-center justify-center flex-shrink-0 transition-colors duration-150">
+          <span className="w-8 h-8 rounded-lg bg-[#3a3b3c] group-hover:bg-red-500/10 flex items-center justify-center shrink-0 transition-colors duration-150">
             <LogOut size={16} />
           </span>
           <span className="text-[0.875rem] font-semibold leading-tight">Sign out</span>

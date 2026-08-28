@@ -10,7 +10,7 @@ import { DataRender } from "../common/DataRender";
 
 interface FeedSectionProps {
   initialPosts: Post[];
-  user:userData[]
+  user: Record<string, userData>;
 }
 
 const FeedSection = ({ initialPosts,user }: FeedSectionProps) => {
@@ -41,7 +41,6 @@ const FeedSection = ({ initialPosts,user }: FeedSectionProps) => {
 
       <section aria-label="Posts" className="flex flex-col gap-y-4">
         <DataRender isLoading={loading} skeleton={<>
-          {SkeletonPostCard}
           {SkeletonPostCard}
           </>} data={posts} renderItem={(item) => { 
             const authorData = user[item.userId];

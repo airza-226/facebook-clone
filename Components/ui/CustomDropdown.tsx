@@ -57,7 +57,7 @@ const CustomDropdown = ({ label, value, onChange }: CustomDropdownProps) => {
         aria-controls={listboxId}
         aria-label={`Select ${label}`}
         className={`
-          w-full h-[52px] px-3
+          w-full h-13 px-3
           flex items-center justify-between
           border rounded-xl
           bg-gray-50 hover:bg-gray-100
@@ -80,7 +80,7 @@ const CustomDropdown = ({ label, value, onChange }: CustomDropdownProps) => {
         <ChevronDown
           size={15}
           className={`
-            text-gray-400 flex-shrink-0
+            text-gray-400 shrink-0
             transition-transform duration-200
             ${isOpen ? 'rotate-180' : ''}
           `}

@@ -22,7 +22,7 @@ const StoryCard = ({
         rounded-2xl overflow-hidden
         cursor-pointer
         group
-        flex-shrink-0
+        shrink-0
         shadow-md
         border border-[#3a3b3c]
       "
@@ -30,7 +30,7 @@ const StoryCard = ({
         variant === "create" ? "Create a new story" : `${username}'s story`
       }
     >
-      {/* ── Top image ── */}
+      
       <div className="h-[70%] w-full overflow-hidden bg-[#3a3b3c] relative">
         <Image
           src={imageSrc ?? Profile}
@@ -41,7 +41,6 @@ const StoryCard = ({
         />
       </div>
 
-      {/* ── Bottom label ── */}
       <div
         className="
         absolute bottom-0 inset-x-0
@@ -63,7 +62,6 @@ const StoryCard = ({
         </p>
       </div>
 
-      {/* ── Action button ── */}
       {variant === "create" ? (
         <button
           aria-label="Create story"
@@ -92,7 +90,7 @@ const StoryCard = ({
             w-9 h-9
             rounded-full overflow-hidden
             ring-4 ring-[#1877f2]
-            flex-shrink-0
+            shrink-0
           "
         >
           <Image
@@ -104,8 +102,6 @@ const StoryCard = ({
           />
         </div>
       )}
-
-      {/* Hover overlay */}
       <div
         className="
         absolute inset-0

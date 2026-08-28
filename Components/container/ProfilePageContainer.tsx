@@ -101,7 +101,7 @@ const ProfilePageContainer = ({ params }: PageProps) => {
 
   return (
     <UserProfileLayout
-      data={viewedProfile}
+      data={viewedProfile ?? null}
       post={posts}
       isLoading={postsLoading}
     />

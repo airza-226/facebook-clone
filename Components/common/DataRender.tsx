@@ -1,6 +1,4 @@
-import { useAuth } from "@/Context/AuthContext";
 import { DataRenderProps } from "@/types";
-import React from "react";
 
 export function DataRender<T>({
   isLoading,
@@ -11,7 +9,9 @@ export function DataRender<T>({
 }: DataRenderProps<T>) {
   
   if (isLoading) {
-    return <>{skeleton}</>;
+    {Array.from({length:4}).map((_,i) => (
+      <>{skeleton}</>
+    ))}
   }
 
   if (!data || !Array.isArray(data) || data.length === 0) {

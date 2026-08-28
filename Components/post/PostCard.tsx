@@ -13,8 +13,11 @@ import { Post, userData } from "@/types";
 import Link from "next/link";
 import { usePostActions } from "@/Hooks/usePostActions";
 import CommentSection from "../comments/CommentSection";
-
-const PostCard = ({ data,user }: { data: Post,user:userData }) => {
+type PostCardProps = {
+  data: Post;
+  user: userData | null;
+};
+const PostCard = ({ data,user }: PostCardProps) => {
   const {likes,handleLike} = usePostActions(data)
   const [showComments,setShowComments] = useState<boolean>(false)
   return (
@@ -28,7 +31,7 @@ const PostCard = ({ data,user }: { data: Post,user:userData }) => {
       transition-all duration-200
     "
     >
-      {/* ── Header ── */}
+
       <header className="flex items-center justify-between px-4 pt-4 pb-2">
         <div className="flex items-center gap-3">
           {/* Avatar */}
@@ -42,7 +45,7 @@ const PostCard = ({ data,user }: { data: Post,user:userData }) => {
             />
           </Link>
 
-          {/* User info */}
+
           <div className="flex flex-col gap-0.5">
             <h3 className="font-semibold text-[0.9rem] leading-tight text-gray-100">
               {`${user?.firstName} ${user?.lastName}` || "Anonymous"}
@@ -57,7 +60,7 @@ const PostCard = ({ data,user }: { data: Post,user:userData }) => {
           </div>
         </div>
 
-        {/* Action Header */}
+
         <div className="flex items-center gap-1">
           <button className="p-2 rounded-full text-gray-400 hover:text-gray-200 hover:bg-[#3a3b3c] transition-all duration-150 cursor-pointer">
             <MoreHorizontal size={20} />
@@ -65,7 +68,7 @@ const PostCard = ({ data,user }: { data: Post,user:userData }) => {
         </div>
       </header>
 
-      {/* ── Content Text ── */}
+
       {data?.content && (
         <div className="flex flex-col gap-1.5 px-4 py-2">
           <p className="text-[0.9375rem] font-normal leading-snug text-gray-100">
@@ -74,7 +77,6 @@ const PostCard = ({ data,user }: { data: Post,user:userData }) => {
         </div>
       )}
 
-      {/* ── Image Cloudinary ── */}
       {data?.imageUrl && (
   <figure className="w-full mt-1 overflow-hidden bg-[#18191a]">
     <Image
@@ -89,7 +91,6 @@ const PostCard = ({ data,user }: { data: Post,user:userData }) => {
   </figure>
 )}
 
-      {/* ── Stats ── */}
       <div className="flex items-center justify-between px-4 py-2 border-b border-[#3a3b3c]">
         <div className="flex items-center gap-1.5">
           <div className="flex items-center justify-center w-5 h-5 bg-[#1877f2] rounded-full">

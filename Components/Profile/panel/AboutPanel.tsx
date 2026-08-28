@@ -9,7 +9,7 @@ import { useUpdateBio } from "@/Hooks/useUpdateBio"
 import { useAuth } from "@/Context/AuthContext";
 
 interface AboutPanelProps {
-  data: userData;
+  data: userData | null;
   isOwnProfile: boolean;
 }
 
@@ -69,7 +69,7 @@ const AboutPanel = ({ data, isOwnProfile }: AboutPanelProps) => {
 
   const contact: AboutRow[] = [
     { icon: <Mail size={18} />, label: "Email", value: data?.email },
-    { icon: <Phone size={18} />, label: "Phone", value: data?.phone },
+    { icon: <Phone size={18} />, label: "Phone", value: data?.phoneNumber },
     { icon: <LinkIcon size={18} />, label: "Website", value: data?.website },
   ];
 

@@ -12,23 +12,21 @@ const CreatePostSection = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { userProfile } = useAuth();
 
-  // Trigger click ke input hidden
   const handlePhotoClick = () => {
     fileInputRef.current?.click();
   };
 
-  // Saat file selesai dipilih di explorer
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setSelectedFile(file);
-      setIsOpen(true); // Langsung buka modal
+      setIsOpen(true); 
     }
   };
 
   const handleCloseModal = () => {
     setIsOpen(false);
-    setSelectedFile(null); // Reset file saat modal ditutup
+    setSelectedFile(null); 
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
@@ -37,7 +35,6 @@ const CreatePostSection = () => {
       aria-label="Create a post"
       className="bg-[#242526] border border-[#3a3b3c] rounded-xl px-4 py-3 flex flex-col gap-3"
     >
-      {/* Hidden File Input */}
       <input
         type="file"
         ref={fileInputRef}
@@ -70,8 +67,6 @@ const CreatePostSection = () => {
           What&apos;s on your mind?
         </button>
       </div>
-
-      {/* Oper initialFile ke modal CreatePost */}
       {isOpen && (
         <CreatePost 
           OnClose={handleCloseModal} 
@@ -93,7 +88,6 @@ const CreatePostSection = () => {
           </span>
         </button>
 
-        {/* Button Photo/Video langsung trigger ref */}
         <button
           type="button"
           onClick={handlePhotoClick}

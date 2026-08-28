@@ -31,7 +31,6 @@ const CommentItem = ({ comment, onLike, onReply }: CommentItemProps) => {
   const uid = firebaseUser?.uid
   const isLiked = uid ? comment.likes.includes(uid) : false
 
-  const authorPhoto = typeof comment.authorPhoto === "string" ? comment.authorPhoto : Profile
 
   return (
     <div className="flex gap-2">
@@ -56,7 +55,7 @@ const CommentItem = ({ comment, onLike, onReply }: CommentItemProps) => {
           <p className="text-[0.8125rem] font-semibold text-gray-100 leading-tight">
             {comment.authorName}
           </p>
-          <p className="text-[0.875rem] text-gray-200 leading-snug break-words mt-0.5">
+          <p className="text-[0.875rem] text-gray-200 leading-snug wrap-break-word mt-0.5">
             {comment.content}
           </p>
         </div>
@@ -86,7 +85,7 @@ const CommentItem = ({ comment, onLike, onReply }: CommentItemProps) => {
           </span>
           {comment.likes.length > 0 && (
             <span className="flex items-center gap-1 ml-auto text-[0.75rem] text-gray-400">
-              <span className="w-4 h-4 rounded-full bg-[#1877f2] flex items-center justify-center flex-shrink-0">
+              <span className="w-4 h-4 rounded-full bg-[#1877f2] flex items-center justify-center shrink-0">
                 <svg width="8" height="8" viewBox="0 0 24 24" fill="white">
                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                 </svg>

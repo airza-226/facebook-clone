@@ -13,7 +13,7 @@ export function DataRender<T>({
     return <>{skeleton}</>;
   }
 
-  if (!data || || data.length === 0) {
+  if (!data ||  data.length === 0) {
     return (
       <p className="text-center text-gray-500 text-sm py-10 w-full col-span-full">
         {emptyText}

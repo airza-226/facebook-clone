@@ -1,4 +1,3 @@
-import SettingsCard from '../ui/SettingsCard'
 import ToggleSwitch from '../ui/ToggleSwitch'
 
 const notificationItems = [

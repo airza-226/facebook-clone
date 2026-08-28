@@ -36,15 +36,15 @@ const PeopleCardSkeleton = ({ variant, showTwoButtons }: PeopleCardSkeletonProps
 
         {showTwoButtons ? (
           <div className="flex flex-col gap-1.5">
-            <div className="h-[30px] w-full rounded-lg bg-[#3a3b3c] overflow-hidden relative">
+            <div className="h-7.5 w-full rounded-lg bg-[#3a3b3c] overflow-hidden relative">
               <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.8s_infinite_0.15s] bg-linear-to-r from-transparent via-white/5 to-transparent" />
             </div>
-            <div className="h-[30px] w-full rounded-lg bg-[#3a3b3c] overflow-hidden relative">
+            <div className="h-7.5 w-full rounded-lg bg-[#3a3b3c] overflow-hidden relative">
               <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.8s_infinite_0.2s] bg-linear-to-r from-transparent via-white/5 to-transparent" />
             </div>
           </div>
         ) : (
-          <div className="h-[30px] w-full rounded-lg bg-[#3a3b3c] overflow-hidden relative">
+          <div className="h-7.5 w-full rounded-lg bg-[#3a3b3c] overflow-hidden relative">
             <div className="absolute inset-0 -translate-x-full animate-[shimmer_1.8s_infinite_0.15s] bg-linear-to-r from-transparent via-white/5 to-transparent" />
           </div>
         )}
