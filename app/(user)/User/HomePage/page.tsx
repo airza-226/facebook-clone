@@ -27,6 +27,7 @@ const page = async() => {
 
   } catch (error) {
     console.error("Failed to fetch initial data", error);
+    throw new Error(`Firebase Fetch Error: ${error}`);
   }
   
   return (
