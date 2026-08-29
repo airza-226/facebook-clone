@@ -24,7 +24,7 @@ const page = async() => {
     }, {} as Record<string, userData>);
     initialPosts = JSON.parse(JSON.stringify(rawPosts));
     initialUserMap = JSON.parse(JSON.stringify(rawUserMap));
-
+    console.log("Fetched initial data successfully", { initialPosts, initialUserMap });
   } catch (error) {
     console.error("Failed to fetch initial data", error);
     throw new Error(`Firebase Fetch Error: ${error}`);
