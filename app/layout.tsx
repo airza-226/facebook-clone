@@ -20,7 +20,7 @@ export const viewport: Viewport = {
 
 
 export const metadata: Metadata = {
-  title: "facebook-clone",
+  title: "Social Vibe Airza-226",
   description: "A social media platform",
   icons: {
     icon: "/icon.ico", 

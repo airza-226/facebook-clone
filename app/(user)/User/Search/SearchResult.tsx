@@ -1,43 +1,47 @@
 "use client";
+
 import React from "react";
-import PostCard from "@/Components/post/PostCard";
 import SideBarMenuSearch from "@/Components/ui/SideBarMenuSearch";
 import { useParams } from "next/navigation";
 import Image from "next/image";
-import { useAuth } from "@/Context/AuthContext";
-import Profile from "@/public/download (1).jpg";
-import { UserPlus, UserX } from "lucide-react";
-import { useUserSearch } from "@/Hooks/useUserSearch";
 import Link from "next/link";
+import { UserPlus, UserX, Loader2 } from "lucide-react";
+import Profile from "@/public/download (1).jpg";
+import { useAuth } from "@/Context/AuthContext";
+import { useUserSearch } from "@/Hooks/useUserSearch";
 import {
   sendFriendRequest,
   cancelFriendRequest,
 } from "@/services/Friends/friendActions";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 const SearchResult = () => {
   const searchParams = useParams();
   const rawQuery = searchParams?.slug as string;
-  const query = decodeURIComponent(rawQuery);
+  const query = decodeURIComponent(rawQuery || "");
   const { firebaseUser } = useAuth();
   const { results: userSearch, isLoading, error } = useUserSearch(query, 500);
-  const handleAddFriend = async (currentUid: string, targetUid: string) => {
-    if (!firebaseUser) return;
-    try {
-      await sendFriendRequest(currentUid, targetUid);
-    } catch (error) {
-      console.error("Error sending friend request:", error);
-    }
-  };
-  const handleCancelFriendRequest = async (
-    currentUid: string,
-    targetUid: string,
-  ) => {
-    if (!firebaseUser) return;
-    try {
-      await cancelFriendRequest(currentUid, targetUid);
-    } catch (error) {
-      console.error("Error canceling friend request:", error);
-    }
-  };
+  const queryClient = useQueryClient();
+  const { mutate: addFriend, isPending: isAdding, variables: addingVars } = useMutation({
+    mutationFn: ({ currentUid, targetUid }: { currentUid: string; targetUid: string }) =>
+      sendFriendRequest(currentUid, targetUid),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["users", "search"] });
+    },
+    onError: (err) => {
+      console.error("Error sending friend request:", err);
+    },
+  });
+  const { mutate: cancelRequest, isPending: isCanceling, variables: cancelingVars } = useMutation({
+    mutationFn: ({ currentUid, targetUid }: { currentUid: string; targetUid: string }) =>
+      cancelFriendRequest(currentUid, targetUid),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["users", "search"] });
+    },
+    onError: (err) => {
+      console.error("Error canceling friend request:", err);
+    },
+  });
+
   return (
     <div className="w-full min-h-screen bg-transparent text-gray-200">
       <div className="left-0 px-4 relative">
@@ -54,7 +58,6 @@ const SearchResult = () => {
                   </span>
                 </h2>
               )}
-
               {isLoading && (
                 <ul className="flex flex-col gap-2.5 w-full">
                   {[1, 2, 3].map((n) => (
@@ -74,25 +77,26 @@ const SearchResult = () => {
                   ))}
                 </ul>
               )}
-
               {error && (
                 <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
-                  cannot found data user: {error}
+                  {error}
                 </div>
               )}
-
               {!isLoading && !error && userSearch?.length === 0 && (
                 <div className="p-8 text-center text-gray-400 bg-[#242526] rounded-2xl border border-[#3a3b3c]">
-                  Theres no user name&quot;{query}&quot;.
+                  There&apos;s no user named &quot;{query}&quot;.
                 </div>
               )}
-
               {!isLoading && !error && userSearch && userSearch.length > 0 && (
                 <ul className="flex flex-col gap-2.5 w-full">
                   {userSearch.map((user) => {
                     const pending =
-                      user.isPending.includes(firebaseUser?.uid || "") &&
+                      (user.isPending || []).includes(firebaseUser?.uid || "") &&
                       user.uid !== firebaseUser?.uid;
+                    const isItemAdding = isAdding && addingVars?.targetUid === user.uid;
+                    const isItemCanceling = isCanceling && cancelingVars?.targetUid === user.uid;
+                    const isItemLoading = isItemAdding || isItemCanceling;
+
                     return (
                       <li
                         key={user.uid}
@@ -124,26 +128,39 @@ const SearchResult = () => {
 
                         {pending ? (
                           <button
+                            disabled={isItemLoading}
                             onClick={() =>
-                              handleCancelFriendRequest(
-                                firebaseUser?.uid || "",
-                                user.uid,
-                              )
+                              cancelRequest({
+                                currentUid: firebaseUser?.uid || "",
+                                targetUid: user.uid,
+                              })
                             }
                             aria-label="Cancel friend request"
-                            className="shrink-0 w-10 h-10 rounded-xl bg-[#0064d1] hover:bg-[#0072ec] active:scale-95 text-white flex items-center justify-center transition-all duration-150 shadow-sm cursor-pointer ml-2"
+                            className="shrink-0 w-10 h-10 rounded-xl bg-[#0064d1] hover:bg-[#0072ec] active:scale-95 text-white flex items-center justify-center transition-all duration-150 shadow-sm cursor-pointer ml-2 disabled:opacity-50 disabled:cursor-not-allowed"
                           >
-                            <UserX size={18} />
+                            {isItemLoading ? (
+                              <Loader2 size={18} className="animate-spin" />
+                            ) : (
+                              <UserX size={18} />
+                            )}
                           </button>
                         ) : (
                           <button
+                            disabled={isItemLoading}
                             onClick={() =>
-                              handleAddFriend(firebaseUser?.uid || "", user.uid)
+                              addFriend({
+                                currentUid: firebaseUser?.uid || "",
+                                targetUid: user.uid,
+                              })
                             }
                             aria-label="Add friend"
-                            className="shrink-0 w-10 h-10 rounded-xl bg-gray-600 hover:bg-gray-500 active:scale-95 text-white flex items-center justify-center transition-all duration-150 shadow-sm cursor-pointer ml-2"
+                            className="shrink-0 w-10 h-10 rounded-xl bg-gray-600 hover:bg-gray-500 active:scale-95 text-white flex items-center justify-center transition-all duration-150 shadow-sm cursor-pointer ml-2 disabled:opacity-50 disabled:cursor-not-allowed"
                           >
-                            <UserPlus size={18} />
+                            {isItemLoading ? (
+                              <Loader2 size={18} className="animate-spin" />
+                            ) : (
+                              <UserPlus size={18} />
+                            )}
                           </button>
                         )}
                       </li>
@@ -151,10 +168,7 @@ const SearchResult = () => {
                   })}
                 </ul>
               )}
-
-              <div>{/* Post Card */}</div>
             </div>
-
 
             <div className="hidden lg:block w-75 shrink-0">
               <div className="sticky top-20 flex flex-col gap-y-4 overflow-x-hidden">
