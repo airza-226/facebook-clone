@@ -4,18 +4,40 @@ import PostCard from "@/Components/post/PostCard";
 import SideBarMenuSearch from "@/Components/ui/SideBarMenuSearch";
 import { useParams } from "next/navigation";
 import Image from "next/image";
+import { useAuth } from "@/Context/AuthContext";
 import Profile from "@/public/download (1).jpg";
-import { User2 } from "lucide-react";
+import { UserPlus, UserX } from "lucide-react";
 import { useUserSearch } from "@/Hooks/useUserSearch";
 import Link from "next/link";
-
+import {
+  sendFriendRequest,
+  cancelFriendRequest,
+} from "@/services/Friends/friendActions";
 const SearchResult = () => {
   const searchParams = useParams();
-  const rawQuery = (searchParams?.slug as string);
+  const rawQuery = searchParams?.slug as string;
   const query = decodeURIComponent(rawQuery);
-
+  const { firebaseUser } = useAuth();
   const { results: userSearch, isLoading, error } = useUserSearch(query, 500);
-
+  const handleAddFriend = async (currentUid: string, targetUid: string) => {
+    if (!firebaseUser) return;
+    try {
+      await sendFriendRequest(currentUid, targetUid);
+    } catch (error) {
+      console.error("Error sending friend request:", error);
+    }
+  };
+  const handleCancelFriendRequest = async (
+    currentUid: string,
+    targetUid: string,
+  ) => {
+    if (!firebaseUser) return;
+    try {
+      await cancelFriendRequest(currentUid, targetUid);
+    } catch (error) {
+      console.error("Error canceling friend request:", error);
+    }
+  };
   return (
     <div className="w-full min-h-screen bg-transparent text-gray-200">
       <div className="left-0 px-4 relative">
@@ -24,10 +46,12 @@ const SearchResult = () => {
         <main className="w-full md:pl-75 lg:pl-85 md:pr-4">
           <div className="w-full max-w-262.5 mx-auto flex gap-x-6 justify-center">
             <div className="w-full max-w-155 flex flex-col space-y-5">
-              
               {query && (
                 <h2 className="text-sm font-medium text-gray-400">
-                  Search Result for: <span className="text-white font-semibold">&quot;{query}&quot;</span>
+                  Search Result for:{" "}
+                  <span className="text-white font-semibold">
+                    &quot;{query}&quot;
+                  </span>
                 </h2>
               )}
 
@@ -65,48 +89,73 @@ const SearchResult = () => {
 
               {!isLoading && !error && userSearch && userSearch.length > 0 && (
                 <ul className="flex flex-col gap-2.5 w-full">
-                  {userSearch.map((user) => (
-                    <li
-                      key={user.uid}
-                      className="flex items-center justify-between p-3 rounded-2xl bg-[#242526] hover:bg-[#3a3b3c] border border-[#3a3b3c] transition-all duration-200 group"
-                    >
-                      <div className="flex items-center gap-x-3.5 min-w-0">
-                        <div className="relative w-12 h-12 shrink-0 rounded-full overflow-hidden ring-2 ring-[#3a3b3c] group-hover:ring-[#4e4f50] transition-all">
-                          <Image
-                            src={user.profilePicture || Profile}
-                            alt={user.firstName || "User Avatar"}
-                            fill
-                            sizes="48px"
-                            className="object-cover"
-                          />
-                        </div>
-
-                        <div className="flex flex-col min-w-0">
-                          <h3 className="font-semibold text-[0.95rem] text-gray-100 group-hover:text-white truncate leading-snug">
-                            {user.firstName} {user.lastName || ""}
-                          </h3>
-                          <p className="text-[0.775rem] text-gray-400 truncate leading-tight font-normal">
-                            {user.bio || "User Profile"}
-                          </p>
-                        </div>
-                      </div>
-
-                      <Link
-                        href={`/User/UserProfile/${user.uid}`}
-                        aria-label="View Profile"
-                        className="shrink-0 w-10 h-10 rounded-xl bg-[#0064d1] hover:bg-[#0072ec] active:scale-95 text-white flex items-center justify-center transition-all duration-150 shadow-sm cursor-pointer ml-2"
+                  {userSearch.map((user) => {
+                    const pending =
+                      user.isPending.includes(firebaseUser?.uid || "") &&
+                      user.uid !== firebaseUser?.uid;
+                    return (
+                      <li
+                        key={user.uid}
+                        className="flex items-center justify-between p-3 rounded-2xl bg-[#242526] hover:bg-[#3a3b3c] border border-[#3a3b3c] transition-all duration-200 group"
                       >
-                        <User2 size={18} />
-                      </Link>
-                    </li>
-                  ))}
+                        <div className="flex items-center gap-x-3.5 min-w-0">
+                          <Link
+                            href={`/User/UserProfile/${user.uid}`}
+                            className="relative w-12 h-12 shrink-0 rounded-full overflow-hidden ring-2 ring-[#3a3b3c] group-hover:ring-[#4e4f50] transition-all"
+                          >
+                            <Image
+                              src={user.profilePicture || Profile}
+                              alt={user.firstName || "User Avatar"}
+                              fill
+                              sizes="48px"
+                              className="object-cover"
+                            />
+                          </Link>
+
+                          <div className="flex flex-col min-w-0">
+                            <h3 className="font-semibold text-[0.95rem] text-gray-100 group-hover:text-white truncate leading-snug">
+                              {user.firstName} {user.lastName || ""}
+                            </h3>
+                            <p className="text-[0.775rem] text-gray-400 truncate leading-tight font-normal">
+                              {user.bio || "User Profile"}
+                            </p>
+                          </div>
+                        </div>
+
+                        {pending ? (
+                          <button
+                            onClick={() =>
+                              handleCancelFriendRequest(
+                                firebaseUser?.uid || "",
+                                user.uid,
+                              )
+                            }
+                            aria-label="Cancel friend request"
+                            className="shrink-0 w-10 h-10 rounded-xl bg-[#0064d1] hover:bg-[#0072ec] active:scale-95 text-white flex items-center justify-center transition-all duration-150 shadow-sm cursor-pointer ml-2"
+                          >
+                            <UserX size={18} />
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() =>
+                              handleAddFriend(firebaseUser?.uid || "", user.uid)
+                            }
+                            aria-label="Add friend"
+                            className="shrink-0 w-10 h-10 rounded-xl bg-gray-600 hover:bg-gray-500 active:scale-95 text-white flex items-center justify-center transition-all duration-150 shadow-sm cursor-pointer ml-2"
+                          >
+                            <UserPlus size={18} />
+                          </button>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               )}
 
               <div>{/* Post Card */}</div>
             </div>
 
-            {/* Right Sidebar */}
+
             <div className="hidden lg:block w-75 shrink-0">
               <div className="sticky top-20 flex flex-col gap-y-4 overflow-x-hidden">
                 <h3 className="font-bold text-lg text-gray-200">Feed List</h3>
@@ -122,7 +171,6 @@ const SearchResult = () => {
                 </div>
               </div>
             </div>
-
           </div>
         </main>
       </div>

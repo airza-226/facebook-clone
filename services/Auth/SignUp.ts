@@ -54,11 +54,12 @@ const executeRegister = async (
       email: data.email,
       birthDay: data.birthDay,
       gender: data.gender,
-      profilePhoto: "",
+      profilePicture: "",
       bio:"",
       bannerPhoto: "",
+      isPending:[],
       friends: [],
-      createAt: serverTimestamp(),
+      createdAt: serverTimestamp(),
     });
     err({});
     console.log("Register Success");
