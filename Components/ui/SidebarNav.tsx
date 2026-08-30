@@ -14,7 +14,7 @@ import Link from 'next/link'
     {label:"Settings", href:'/User/Account'}
   ]
 const SidebarNav = () => {
-    const {userProfile} = useAuth()
+    const {userProfile,firebaseUser} = useAuth()
   return (
     <aside
           aria-label="Left sidebar navigation"
@@ -34,8 +34,8 @@ const SidebarNav = () => {
             transition-all
           "
         >
-          <a
-            href="#"
+          <Link
+          href={firebaseUser ? `/User/UserProfile/${firebaseUser.uid}` : "/Login"}
             className="flex items-center gap-3 p-2 rounded-lg hover:bg-[#3a3b3c] active:bg-[#4e4f50] transition-colors duration-150 group"
           >
             <div className="relative w-9 h-9 shrink-0">
@@ -51,7 +51,7 @@ const SidebarNav = () => {
             <span className="text-[0.9375rem] font-semibold text-gray-100 group-hover:text-white leading-tight">
               {userProfile?.firstName} {userProfile?.lastName}
             </span>
-          </a>
+          </Link>
 
           <nav aria-label="Main navigation">
             <ul className="flex flex-col gap-y-0.5">
@@ -71,7 +71,6 @@ const SidebarNav = () => {
           <footer className="mt-auto pt-4 border-t border-[#3a3b3c]">
             <p className="text-[0.6875rem] text-gray-500 leading-relaxed px-2">
               Privacy · Terms · Advertising · Cookies · More ·{" "}
-              <span className="block mt-0.5">Meta © 2025</span>
             </p>
           </footer>
         </aside>

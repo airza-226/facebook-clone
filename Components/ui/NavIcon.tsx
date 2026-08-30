@@ -25,7 +25,7 @@ const centerLinks = [
 
 const rightActions = [
   { icon: <LayoutGrid size={20} />, href: '#', label: "Menu", onClick: () => {} },
-  { icon: <MessageCircle size={20} />, href: '/User/Chat', label: "Messenger", onClick: () => {} },
+  { icon: <MessageCircle size={20} />, href: '/User/HomePage/Chat', label: "Messenger", onClick: () => {} },
   { icon: <Bell size={20} />, href: '#', label: "Notifications", onClick: () => {} },
 ]
 const NavIcon = ({ mode }: NavIconProps) => {

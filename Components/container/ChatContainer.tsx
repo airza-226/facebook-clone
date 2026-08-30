@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect, useMemo, use } from "react";
-import ChatList from "./ChatList";
-import ChatWindow from "./ChatWindow";
-import ChatEmptyState from "./ChatEmptyState";
+import ChatList from "../Chat/ChatList";
+import ChatWindow from "../Chat/ChatWindow";
+import ChatEmptyState from "../Chat/ChatEmptyState";
 import { userData, Conversation, userDataChat } from "@/types";
 import { useAuth } from "@/Context/AuthContext";
 import { fetchUserProfile } from "@/services/User/fetchUserProfile";

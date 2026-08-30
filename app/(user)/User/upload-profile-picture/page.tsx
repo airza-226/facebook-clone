@@ -1,4 +1,4 @@
-import UploadProfilePicture from '@/layouts/UploadProfilePicture'
+import UploadProfilePicture from '@/Components/layouts/UploadProfilePicture'
 import React from 'react'
 
 const page = () => {

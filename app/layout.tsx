@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/layouts/Navbar";
+import Navbar from "@/Components/layouts/Navbar";
 import { AuthProvider } from "@/Context/AuthContext";
 import QueryProvider from "@/providers/QueryProvider";
 

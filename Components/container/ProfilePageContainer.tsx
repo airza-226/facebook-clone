@@ -1,6 +1,6 @@
 "use client";
 import { use, useEffect } from "react";
-import UserProfileLayout from "@/layouts/UserProfileLayout";
+import UserProfileLayout from "@/Components/layouts/UserProfileLayout";
 import { useRouter } from "next/navigation";
 import { AlertCircle, RefreshCw } from "lucide-react";
 import { useAuth } from "@/Context/AuthContext";

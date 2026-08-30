@@ -10,9 +10,9 @@ import SkeletonChat from "../cards/SkeletonChat";
 import { ChatItem } from "./ChatItem";
 
 interface ChatListProps {
-  activeConversationId: string | null;
-  onSelectConversation: (conv: Conversation) => void;
-  isLoading: boolean;
+  activeConversationId?: string | null;
+  onSelectConversation?: (conv: Conversation) => void;
+  isLoading?: boolean;
 }
 
 const ChatList = ({

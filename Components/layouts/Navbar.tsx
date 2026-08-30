@@ -1,15 +1,14 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import Profile from "@/public/download (1).jpg";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import NavIcon from "@/Components/ui/NavIcon";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/Context/AuthContext";
-
+import icon from "@/public/icon.png";
 const Navbar = () => {
-  const { firebaseUser,userProfile } = useAuth();
+  const { firebaseUser,} = useAuth();
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [search, setSearch] = useState<boolean>(false);
   const router = useRouter();
@@ -42,7 +41,7 @@ const Navbar = () => {
           >
             <Image
               alt="Home"
-              src={userProfile?.profilePicture || Profile}
+              src={icon}
               width={36}
               height={36}
               className="rounded-full object-cover"
@@ -85,25 +84,6 @@ const Navbar = () => {
         <div className="flex items-center gap-x-2">
           <NavIcon mode="right" />
 
-          <Link
-            href={firebaseUser ? `/User/UserProfile/${firebaseUser.uid}` : "/Login"}
-            aria-label="Go to your profile"
-            className="
-              relative w-9 h-9 shrink-0
-              rounded-full overflow-hidden
-              ring-2 ring-[#3a3b3c]
-              hover:ring-[#4e4f50]
-              transition-all duration-150
-            "
-          >
-            <Image
-              alt="Your profile"
-              src={userProfile?.profilePicture || Profile}
-              fill
-              sizes="36px"
-              className="object-cover"
-            />
-          </Link>
         </div>
       </nav>
     </header>

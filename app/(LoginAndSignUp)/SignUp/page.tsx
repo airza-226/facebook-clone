@@ -1,6 +1,6 @@
 export const dynamic = 'force-static';
-import AuthContainer from "@/layouts/auth/AuthContainer";
-import SignUp from "@/layouts/auth/SignUp";
+import AuthContainer from "@/Components/layouts/auth/AuthContainer";
+import SignUp from "@/Components/layouts/auth/SignUp";
 import React from "react";
 const page = () => {
   return (

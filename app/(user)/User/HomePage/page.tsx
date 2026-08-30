@@ -2,7 +2,7 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 export const fetchCache = 'force-no-store';
 
-import Hero from "@/layouts/Hero"
+import Hero from "@/Components/layouts/Hero"
 import React from 'react'
 import { fetchAllPosts } from "@/services/Post/fetchPost"
 import { Post, userData } from "@/types"

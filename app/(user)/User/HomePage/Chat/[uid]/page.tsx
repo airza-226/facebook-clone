@@ -1,4 +1,4 @@
-import ChatContainer from '@/Components/Chat/ChatContainer'
+import ChatContainer from '@/Components/container/ChatContainer'
 import React from 'react'
 
 interface PageProps {
