@@ -19,7 +19,6 @@ import { Message, userDataChat } from "@/types";
 import SkeletonChat from "../cards/SkeletonChat";
 import { MessageRender } from "../common/MessageRender";
 import BubbleChat from "./BubbleChat";
-import { getAuth } from "firebase/auth";
 import Link from "next/link";
 interface ChatWindowProps {
   otherUser: userDataChat;
