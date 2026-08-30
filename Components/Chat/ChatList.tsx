@@ -27,18 +27,18 @@ const ChatList = ({
     if (!firebaseUser) return;
     router.push(`/User/HomePage/Chat/${uid}`);
   };
-useEffect(() => {
-  const userId = firebaseUser?.uid;
-  if (!userId) return;
+  useEffect(() => {
+    const userId = firebaseUser?.uid;
+    if (!userId) return;
 
-  const unsubscribe = listenToConversations(userId, setConversations);
+    const unsubscribe = listenToConversations(userId, setConversations);
 
-  return () => {
-    if (typeof unsubscribe === 'function') {
-      unsubscribe();
-    }
-  };
-}, [firebaseUser?.uid]);
+    return () => {
+      if (typeof unsubscribe === "function") {
+        unsubscribe();
+      }
+    };
+  }, [firebaseUser?.uid]);
 
   return (
     <aside
@@ -71,7 +71,7 @@ useEffect(() => {
 
       <ul className={`${isLoading ? "space-y-1.5" : "space-y-1"} px-2`}>
         <ChatRender<Conversation>
-          isLoading={isLoading}
+          isLoading={Boolean(isLoading)}
           skeleton={<SkeletonChat />}
           conv={conversations}
           renderItem={(conv) => (
@@ -81,7 +81,7 @@ useEffect(() => {
               currentUid={firebaseUser?.uid}
               isActive={activeConversationId === conv.id}
               onSelect={(selectedConv, otherUid) => {
-                onSelectConversation(selectedConv);
+                onSelectConversation?.(selectedConv);
                 handleChatClick(otherUid);
               }}
             />
