@@ -36,7 +36,7 @@ const CommentItem = ({ comment, onLike, onReply }: CommentItemProps) => {
     <div className="flex gap-2">
       <div className="relative w-8 h-8 shrink-0 mt-0.5">
         <Image
-          src={firebaseUser?.photoURL || Profile}
+          src={comment.authorPhoto || Profile}
           alt={comment.authorName}
           fill
           sizes="32px"
