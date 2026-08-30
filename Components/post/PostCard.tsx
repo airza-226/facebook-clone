@@ -115,6 +115,7 @@ const PostCard = ({ data,user }: PostCardProps) => {
 
         <button className="flex items-center gap-2 flex-1 justify-center py-2 rounded-lg text-gray-400 hover:text-gray-200 hover:bg-[#3a3b3c] active:scale-95 transition-all duration-150 cursor-pointer" onClick={()=>setShowComments((p)=> !p)}>
           <MessageCircle size={20} strokeWidth={1.75} />
+          <span className="text-[0.8125rem] text-gray-400">{data.commentsCount ?? 0}</span>
         </button>
 
         <button className="flex items-center gap-2 flex-1 justify-center py-2 rounded-lg text-gray-400 hover:text-gray-200 hover:bg-[#3a3b3c] active:scale-95 transition-all duration-150 cursor-pointer">
