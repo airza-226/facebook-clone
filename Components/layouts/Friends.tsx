@@ -146,6 +146,7 @@ const Friends = () => {
                         name={`${user.firstName} ${user.lastName}`}
                         photoURL={user.profilePicture}
                         isPending={isPendingSent}
+                        uid={user.uid}
                         isProcessing={isProcessing}
                         onAddFriend={() => sendRequest.mutate(user.uid)}
                         onCancelRequest={() => cancelRequest.mutate(user.uid)}

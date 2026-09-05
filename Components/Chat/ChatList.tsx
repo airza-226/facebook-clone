@@ -14,7 +14,10 @@ interface ChatListProps {
   onSelectConversation?: (conv: Conversation) => void;
 }
 
-const ChatList = ({ activeConversationId, onSelectConversation }: ChatListProps) => {
+const ChatList = ({
+  activeConversationId,
+  onSelectConversation,
+}: ChatListProps) => {
   const { firebaseUser } = useAuth();
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -64,7 +67,10 @@ const ChatList = ({ activeConversationId, onSelectConversation }: ChatListProps)
 
       <div className="px-3 py-2">
         <div className="flex items-center gap-2 bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 transition-colors rounded-full px-3.5 py-2 cursor-text focus-within:ring-2 focus-within:ring-blue-500/50">
-          <Search size={15} className="text-gray-500 dark:text-gray-400 shrink-0" />
+          <Search
+            size={15}
+            className="text-gray-500 dark:text-gray-400 shrink-0"
+          />
           <input
             type="text"
             placeholder="Search Messenger"
@@ -74,7 +80,9 @@ const ChatList = ({ activeConversationId, onSelectConversation }: ChatListProps)
         </div>
       </div>
 
-      <ul className={`${isLoading ? "space-y-1.5" : "space-y-1"} px-2 overflow-y-auto scrollbar-hide flex-1 pb-2`}>
+      <ul
+        className={`${isLoading ? "space-y-1.5" : "space-y-1"} px-2 overflow-y-auto scrollbar-hide flex-1 pb-2`}
+      >
         <ChatRender<Conversation>
           isLoading={isLoading}
           skeleton={<SkeletonChat />}
