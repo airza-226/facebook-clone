@@ -57,23 +57,24 @@ const CustomDropdown = ({ label, value, onChange }: CustomDropdownProps) => {
         aria-controls={listboxId}
         aria-label={`Select ${label}`}
         className={`
-          w-full h-13 px-3
+          w-full h-[52px] px-3
           flex items-center justify-between
           border rounded-xl
-          bg-gray-50 hover:bg-gray-100
+          bg-gray-50 hover:bg-gray-100 
+          dark:bg-[#3a3b3c] dark:hover:bg-[#4e4f50] 
           transition-all duration-150
           cursor-pointer
           ${isOpen
-            ? 'border-blue-500 bg-white ring-2 ring-blue-500/10'
-            : 'border-gray-200'
+            ? 'border-blue-500 bg-white dark:bg-[#242526] ring-2 ring-blue-500/10'
+            : 'border-gray-200 dark:border-transparent'
           }
         `}
       >
         <div className="flex flex-col items-start gap-0.5">
-          <span className="text-[0.6875rem] font-medium text-gray-400 leading-none select-none">
+          <span className="text-[0.6875rem] font-medium text-gray-400 dark:text-gray-400 leading-none select-none">
             {label}
           </span>
-          <span className="text-[0.875rem] font-semibold text-gray-800 leading-none">
+          <span className="text-[0.875rem] font-semibold text-gray-800 dark:text-gray-100 leading-none">
             {value || ''}
           </span>
         </div>
@@ -97,13 +98,13 @@ const CustomDropdown = ({ label, value, onChange }: CustomDropdownProps) => {
             absolute left-0 top-full mt-1.5
             w-full max-h-48
             overflow-y-auto
-            bg-white
-            border border-gray-100
+            bg-white dark:bg-[#242526]
+            border border-gray-100 dark:border-[#3a3b3c]
             rounded-xl
             shadow-xl
             z-50
             p-1.5
-            scrollbar-thin scrollbar-thumb-gray-200
+            scrollbar-thin scrollbar-thumb-gray-200 dark:scrollbar-thumb-gray-700
           "
         >
           {options.map((option) => (
@@ -123,8 +124,8 @@ const CustomDropdown = ({ label, value, onChange }: CustomDropdownProps) => {
                 transition-colors duration-100
                 text-left
                 ${value === option
-                  ? 'bg-blue-50 text-blue-600'
-                  : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                  ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400'
+                  : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-[#3a3b3c] dark:hover:text-white'
                 }
               `}
             >
