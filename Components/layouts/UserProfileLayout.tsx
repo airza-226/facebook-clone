@@ -72,10 +72,8 @@ const UserProfileLayout = ({ data, post, isLoading }: UserProfileLayoutProps) =>
   };
 
   return (
-    // Menggunakan background transparan/mengikuti variabel global agar tema Dim/Dark/Light di body langsung tembus ke sini
     <div className="w-full min-h-screen bg-transparent mt-14 transition-colors duration-150">
       <div className="max-w-275 mx-auto px-3 md:px-6 pb-10">
-        {/* Banner & Mobile Avatar */}
         <div className="relative w-full mt-2">
           <div className="relative w-full h-48 sm:h-64 md:h-80 lg:h-100 rounded-xl overflow-hidden bg-black/5 dark:bg-white/5">
             <Image src={userBanner} alt="Profile Banner" fill className="object-cover" priority />
@@ -85,8 +83,6 @@ const UserProfileLayout = ({ data, post, isLoading }: UserProfileLayoutProps) =>
             <Image src={userAvatar} alt="Profile" fill className="object-cover" />
           </div>
         </div>
-
-        {/* Mobile Info Header */}
         <div className="flex flex-col items-center gap-1.5 pt-20 pb-4 md:hidden w-full">
           <h1 className="font-bold text-xl tracking-tight">
             {data?.firstName} {data?.lastName || ""}
@@ -138,19 +134,13 @@ const UserProfileLayout = ({ data, post, isLoading }: UserProfileLayoutProps) =>
             </button>
           </div>
         </div>
-
-        {/* Desktop Profile Card Component */}
         <div className="hidden md:block mt-2.5">
           <UserProfile data={data ?? null} />
         </div>
-
         <div className="w-full">
           <FriendsCard />
         </div>
-
         <div className="border-t border-black/10 dark:border-white/10 mt-4" />
-        
-        {/* Navigation Tabs */}
         <div className="flex items-center justify-between px-1 mt-1">
           <div className="flex items-center overflow-x-auto scrollbar-hide">
             {navTabs.map((tab, index) => (
@@ -174,8 +164,6 @@ const UserProfileLayout = ({ data, post, isLoading }: UserProfileLayoutProps) =>
             <Users2 size={18} />
           </button>
         </div>
-
-        {/* Main Content Layout */}
         <div className="mt-4 flex flex-col md:flex-row gap-4 items-start w-full">
           <aside
             className="hidden md:flex
@@ -188,7 +176,6 @@ const UserProfileLayout = ({ data, post, isLoading }: UserProfileLayoutProps) =>
               overflow-y-hidden
               scrollbar-hide"
           >
-            {/* Intro Section */}
             <div className="bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-4 py-4 flex flex-col gap-3 shadow-sm">
               <div className="flex items-center justify-between">
                 <h2 className="font-bold text-base">Intro</h2>
@@ -214,8 +201,6 @@ const UserProfileLayout = ({ data, post, isLoading }: UserProfileLayoutProps) =>
                 <span className="font-semibold text-sm">+ Add Highlights</span>
               </button>
             </div>
-
-            {/* Friends Section in Sidebar */}
             <div className="bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-4 py-4 flex flex-col gap-3 shadow-sm">
               <div className="flex items-center justify-between">
                 <div>
