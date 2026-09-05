@@ -21,9 +21,18 @@ const SearchResult = () => {
   const { firebaseUser } = useAuth();
   const { results: userSearch, isLoading, error } = useUserSearch(query, 500);
   const queryClient = useQueryClient();
-  const { mutate: addFriend, isPending: isAdding, variables: addingVars } = useMutation({
-    mutationFn: ({ currentUid, targetUid }: { currentUid: string; targetUid: string }) =>
-      sendFriendRequest(currentUid, targetUid),
+  const {
+    mutate: addFriend,
+    isPending: isAdding,
+    variables: addingVars,
+  } = useMutation({
+    mutationFn: ({
+      currentUid,
+      targetUid,
+    }: {
+      currentUid: string;
+      targetUid: string;
+    }) => sendFriendRequest(currentUid, targetUid),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users", "search"] });
     },
@@ -31,9 +40,18 @@ const SearchResult = () => {
       console.error("Error sending friend request:", err);
     },
   });
-  const { mutate: cancelRequest, isPending: isCanceling, variables: cancelingVars } = useMutation({
-    mutationFn: ({ currentUid, targetUid }: { currentUid: string; targetUid: string }) =>
-      cancelFriendRequest(currentUid, targetUid),
+  const {
+    mutate: cancelRequest,
+    isPending: isCanceling,
+    variables: cancelingVars,
+  } = useMutation({
+    mutationFn: ({
+      currentUid,
+      targetUid,
+    }: {
+      currentUid: string;
+      targetUid: string;
+    }) => cancelFriendRequest(currentUid, targetUid),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users", "search"] });
     },
@@ -60,9 +78,9 @@ const SearchResult = () => {
               )}
               {isLoading && (
                 <ul className="flex flex-col gap-2.5 w-full">
-                  {[1, 2, 3].map((n) => (
+                  {Array.from({ length: 5 }, (_, index) => (
                     <li
-                      key={n}
+                      key={index}
                       className="flex items-center justify-between p-3 rounded-2xl bg-[#242526] border border-[#3a3b3c] animate-pulse"
                     >
                       <div className="flex items-center gap-x-3.5 min-w-0">
@@ -91,10 +109,13 @@ const SearchResult = () => {
                 <ul className="flex flex-col gap-2.5 w-full">
                   {userSearch.map((user) => {
                     const pending =
-                      (user.isPending || []).includes(firebaseUser?.uid || "") &&
-                      user.uid !== firebaseUser?.uid;
-                    const isItemAdding = isAdding && addingVars?.targetUid === user.uid;
-                    const isItemCanceling = isCanceling && cancelingVars?.targetUid === user.uid;
+                      (user.isPending || []).includes(
+                        firebaseUser?.uid || "",
+                      ) && user.uid !== firebaseUser?.uid;
+                    const isItemAdding =
+                      isAdding && addingVars?.targetUid === user.uid;
+                    const isItemCanceling =
+                      isCanceling && cancelingVars?.targetUid === user.uid;
                     const isItemLoading = isItemAdding || isItemCanceling;
 
                     return (

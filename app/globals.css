@@ -1,6 +1,4 @@
 @import "tailwindcss";
-
-/* Gabungkan class .dark dan .dim agar styling dark:* berlaku di kedua tema */
 @custom-variant dark (&:where(.dark, .dim, .dark *, .dim *));
 
 :root,

@@ -10,7 +10,7 @@ const LanguagePanel = () => {
             English
           </option>
           <option value="id" className="bg-white dark:bg-slate-900 text-gray-900 dark:text-gray-100">
-            Bahasa Indonesia
+            Indonesia
           </option>
           <option value="ja" className="bg-white dark:bg-slate-900 text-gray-900 dark:text-gray-100">
             日本語

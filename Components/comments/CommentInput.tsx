@@ -43,16 +43,17 @@ const CommentInput = ({ onSubmit, placeholder = "Write a comment...", autoFocus,
           alt="Your profile"
           fill
           sizes={compact ? "28px" : "36px"}
-          className="rounded-full object-cover ring-2 ring-[#3a3b3c]"
+          className="rounded-full object-cover ring-2 ring-black/10 dark:ring-white/10"
         />
       </div>
 
       <div className="
         flex-1 flex items-center gap-2
-        bg-[#3a3b3c]
-        rounded-full
-        pl-3.5 pr-1.5 py-1.5
+        bg-black/5 dark:bg-white/5
+        border border-black/10 dark:border-white/10
+        rounded-full px-3 py-1.5
         focus-within:ring-1 focus-within:ring-[#1877f2]/40
+        pl-3.5 pr-1.5
         transition-all duration-150
       ">
         <input

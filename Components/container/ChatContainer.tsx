@@ -60,6 +60,9 @@ const ChatContainer = ({ params }: ChatContainerProps) => {
         }
       } catch (error) {
         if (!isCanceled) setFetchError(true);
+        console.error("Error fetching user profile:", error);
+      }finally {
+ setIsLoading(false);
       }
     };
     load();

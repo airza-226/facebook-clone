@@ -36,7 +36,7 @@ const executeLogin = async (
     console.log("success");
     return true;
   } catch (error: any) {
-    console.log("Login gagal:", error.code);
+    console.log("Login failed:", error.code);
     if (
       error.code === "auth/invalid-credential" ||
       error.code === "auth/user-not-found"

@@ -135,7 +135,7 @@ export interface DataChatProps<T> {
   skeleton:React.ReactNode
   renderItem:(item:T,) => React.ReactNode
   isLoading:boolean
-  conv:T[]
+  conversation:T[]
 }
 
 export interface DataMessageRender<T> {

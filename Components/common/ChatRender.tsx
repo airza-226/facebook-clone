@@ -3,15 +3,15 @@ import React from "react";
 export function ChatRender<T>({
   isLoading,
   skeleton,
-  conv,
+  conversation,
   renderItem,
 }: DataChatProps<T>) {
   if (isLoading) {
-    {Array.from({ length: 4 }).map((_, i) => (
+    {Array.from({ length: 4 }).map(() => (
       <>{skeleton}</>
     ))}
   }
-  if (conv.length === 0) {
+  if (conversation.length === 0) {
     return (
       <p className="text-center text-gray-500 text-[0.8125rem] py-8">
         No Conversation Yet
@@ -19,5 +19,5 @@ export function ChatRender<T>({
     );
   }
 
-  return <>{conv.map(renderItem)}</>;
+  return <>{conversation.map(renderItem)}</>;
 }
