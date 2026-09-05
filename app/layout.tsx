@@ -4,8 +4,7 @@ import "./globals.css";
 import Navbar from "@/Components/layouts/Navbar";
 import { AuthProvider } from "@/Context/AuthContext";
 import QueryProvider from "@/providers/QueryProvider";
-import { ThemeProvider } from "@/providers/ThemeProvider"; // Sesuaikan path file ThemeProvider kamu
-
+import { ThemeProvider } from "@/Components/providers/theme-provider"; 
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
@@ -48,7 +47,7 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           themes={["light", "dark", "dim"]}
           enableSystem={false}
         >
