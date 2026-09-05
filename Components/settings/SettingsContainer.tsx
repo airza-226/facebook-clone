@@ -1,4 +1,5 @@
 'use client'
+
 import { useState } from 'react'
 import SettingsSidebar from './SettingsSidebar'
 import { sidebarNav, SettingsSection } from './settingsNav.config'
@@ -30,7 +31,7 @@ const SettingsContainer = () => {
   const ActivePanel = panelMap[activeSection]
 
   return (
-    <div className="w-full min-h-screen bg-[#18191a] mt-14">
+    <div className="w-full min-h-screen">
       <div className="max-w-5xl mx-auto px-4 md:px-6 py-6 flex flex-col md:flex-row gap-4 items-start">
 
         <SettingsSidebar
@@ -40,10 +41,10 @@ const SettingsContainer = () => {
 
         <main className="flex-1 min-w-0 flex flex-col gap-y-4 w-full">
           <div className="px-1">
-            <h1 className="font-bold text-[1.25rem] text-gray-100 leading-tight">
+            <h1 className="font-bold text-[1.25rem] text-gray-900 dark:text-gray-100 leading-tight">
               {activeItem?.label}
             </h1>
-            <p className="text-[0.875rem] text-gray-400 leading-relaxed mt-0.5">
+            <p className="text-[0.875rem] text-gray-500 dark:text-gray-400 leading-relaxed mt-0.5">
               {activeItem?.desc}
             </p>
           </div>

@@ -1,14 +1,19 @@
 @import "tailwindcss";
 
+/* Gabungkan class .dark dan .dim agar styling dark:* berlaku di kedua tema */
+@variant dark (&:where(.dark, .dark *, .dim, .dim *));
+
 :root,
 html.light {
   --bg-main: #ffffff;
   --text-main: #0f172a;
 }
+
 html.dark {
   --bg-main: #18191a;
   --text-main: #f3f4f6;
 }
+
 html.dim {
   --bg-main: #2d3748;
   --text-main: #f7fafc;

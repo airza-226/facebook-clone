@@ -30,18 +30,23 @@ const AppearancePanel = () => {
             return (
               <button
                 key={item.id}
+                type="button"
                 onClick={() => setTheme(item.id)}
                 className={`flex flex-col items-center gap-2 px-4 py-4 rounded-xl border-2 transition-all duration-150 cursor-pointer ${
                   isActive
                     ? 'border-[#1877f2] bg-[#1877f2]/10'
-                    : 'border-[#3a3b3c] hover:border-[#4e4f50]'
+                    : 'border-black/10 dark:border-white/10 hover:border-black/20 dark:hover:border-white/20'
                 }`}
               >
                 <div
-                  className="w-10 h-10 rounded-lg border border-[#3a3b3c]"
+                  className="w-10 h-10 rounded-lg border border-black/10 dark:border-white/20 shadow-sm"
                   style={{ background: item.bg }}
                 />
-                <span className={`text-[0.875rem] font-semibold ${isActive ? 'text-[#4da3ff]' : 'text-gray-300'}`}>
+                <span className={`text-[0.875rem] font-semibold ${
+                  isActive 
+                    ? 'text-[#1877f2] dark:text-[#4da3ff]' 
+                    : 'text-gray-700 dark:text-gray-300'
+                }`}>
                   {item.label}
                 </span>
               </button>
