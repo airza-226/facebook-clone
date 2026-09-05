@@ -30,7 +30,7 @@ const SkeletonPostCard = () => {
         <div className="h-4 w-3/4 rounded-md bg-black/10 dark:bg-white/10" />
       </div>
 
-      <figure className="w-full h-0 pb-[56.25%] mt-1 bg-black/5 dark:bg-white/[0.02]" />
+      <figure className="w-full h-0 pb-[56.25%] mt-1 bg-black/5 dark:bg-white/2" />
 
       <div className="flex items-center justify-between px-4 py-3 border-b border-black/10 dark:border-white/10">
         <div className="flex items-center gap-1.5">

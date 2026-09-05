@@ -9,17 +9,17 @@ interface ChatItemProps {
   onSelect: (conv: Conversation, otherUid: string) => void
 }
 
-export function ChatItem({ conv, currentUid, isActive, onSelect }: ChatItemProps) {
-  const otherUid = conv.participants.find((p) => p !== currentUid)
+export function ChatItem({ conv: conversation, currentUid, isActive, onSelect }: ChatItemProps) {
+  const otherUid = conversation.participants.find((p) => p !== currentUid)
   if (!otherUid) return null
 
-  const name = conv.participantNames[otherUid]
-  const photo = conv.participantPhotos[otherUid]
+  const name = conversation.participantNames[otherUid]
+  const photo = conversation.participantPhotos[otherUid]
 
   return (
     <li className='px-2 pt-2'>
       <button
-        onClick={() => onSelect(conv, otherUid)}
+        onClick={() => onSelect(conversation, otherUid)}
         aria-current={isActive ? 'true' : undefined}
         className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-all duration-150 cursor-pointer ${
           isActive ? 'bg-[#1877f2]/10' : 'hover:bg-[#3a3b3c]'
@@ -39,7 +39,7 @@ export function ChatItem({ conv, currentUid, isActive, onSelect }: ChatItemProps
             {name}
           </p>
           <p className="text-[0.8125rem] text-gray-500 leading-tight truncate">
-            {conv.lastMessage}
+            {conversation.lastMessage}
           </p>
         </div>
       </button>

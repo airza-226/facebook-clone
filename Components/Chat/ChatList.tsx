@@ -73,7 +73,7 @@ const ChatList = ({
         <ChatRender<Conversation>
           isLoading={Boolean(isLoading)}
           skeleton={<SkeletonChat />}
-          conv={conversations}
+          conversation={conversations}
           renderItem={(conv) => (
             <ChatItem
               key={conv.id}

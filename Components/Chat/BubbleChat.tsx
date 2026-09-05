@@ -8,7 +8,7 @@ interface BubbleChatProps {
 
 const BubbleChat = ({ message }: BubbleChatProps) => {
   const { firebaseUser } = useAuth()
-  const isMe = message.senderId === firebaseUser?.uid
+  const isMe = message.senderId === firebaseUser?.uid || "" 
 
   return (
     <div className={`flex items-end gap-2 ${isMe ? 'justify-end' : 'justify-start'}`}>
