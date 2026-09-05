@@ -1,80 +1,177 @@
 "use client";
-
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import { useAuth } from "@/Context/AuthContext";
-import { updateUserBio } from "@/services/User/updateUserBio";
+import {
+  Briefcase, GraduationCap, MapPin, Home, Heart,
+  Mail, Phone, Link as LinkIcon, Cake, Pen, X, Loader2,
+} from "lucide-react";
+import { userData } from "@/types";
+import { useUpdateBio } from "@/Hooks/useUpdateBio";
 
-interface BioEditorProps {
-  initialBio?: string;
-  onClose?: () => void;
+interface AboutPanelProps {
+  data: userData | null;
+  isOwnProfile: boolean;
 }
 
-const BioEditor = ({ initialBio = "", onClose }: BioEditorProps) => {
-  const { userProfile, refreshProfile } = useAuth();
-  const [bio, setBio] = useState(initialBio);
-  const [charCount, setCharCount] = useState(101 - initialBio.length);
+interface AboutRow {
+  icon: React.ReactNode;
+  label: string;
+  value?: string | null;
+}
 
-  const mutation = useMutation({
-    mutationFn: async (newBio: string) => {
-      if (!userProfile?.uid) throw new Error("Unauthorized");
-      await updateUserBio(userProfile.uid, newBio);
-    },
-    onSuccess: async () => {
-      if (refreshProfile) {
-        await refreshProfile();
-      }
-      if (onClose) {
-        onClose();
-      }
-    },
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const val = e.target.value;
-    if (val.length <= 101) {
-      setBio(val);
-      setCharCount(101 - val.length);
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    mutation.mutate(bio);
-  };
-
+const AboutRowItem = ({ icon, label, value }: AboutRow) => {
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-3 w-full">
-      <textarea
-        value={bio}
-        onChange={handleChange}
-        placeholder="Describe who you are..."
-        rows={3}
-        className="w-full p-3 bg-gray-100 dark:bg-[#3a3b3c] text-gray-900 dark:text-gray-100 rounded-xl resize-none outline-none border border-black/10 dark:border-transparent focus:border-blue-500 text-sm transition-colors"
-      />
-      <div className="flex items-center justify-between">
-        <span className="text-xs text-gray-500 dark:text-gray-400">
-          {charCount} characters left
+    <div className="flex items-center gap-3 px-2 py-2.5 hover:bg-black/5 dark:hover:bg-[#3a3b3c] rounded-lg transition-colors duration-150 group">
+      <span className="text-gray-400 dark:text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200 shrink-0 transition-colors">{icon}</span>
+      {value ? (
+        <span className="text-sm text-gray-800 dark:text-gray-200 leading-snug">
+          {value} <span className="text-gray-400 dark:text-gray-500">· {label}</span>
         </span>
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={onClose}
-            className="px-4 py-2 rounded-xl bg-black/5 hover:bg-black/10 dark:bg-[#3a3b3c] dark:hover:bg-[#4e4f50] text-gray-700 dark:text-gray-200 text-sm font-semibold transition-all cursor-pointer"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            disabled={mutation.isPending}
-            className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 dark:bg-[#1877f2] dark:hover:bg-[#1a6ed4] disabled:opacity-50 text-white text-sm font-semibold transition-all cursor-pointer shadow-md"
-          >
-            {mutation.isPending ? "Saving..." : "Save"}
-          </button>
-        </div>
-      </div>
-    </form>
+      ) : (
+        <button type="button" className="text-sm text-blue-600 dark:text-[#4da3ff] hover:underline font-medium cursor-pointer">
+          Add {label.toLowerCase()}
+        </button>
+      )}
+    </div>
   );
 };
 
-export default BioEditor;
+const AboutPanel = ({ data, isOwnProfile }: AboutPanelProps) => {
+  const [isEditingBio, setIsEditingBio] = useState(false);
+  const [draftBio, setDraftBio] = useState(data?.bio ?? "");
+  
+  // Hook mutasi yang otomatis menangani pembaruan state lokal secara optimis / re-fetch
+  const updateBio = useUpdateBio(data?.uid ?? "");
+
+  const startEditing = () => {
+    setDraftBio(data?.bio ?? "");
+    setIsEditingBio(true);
+  };
+
+  const cancelEditing = () => {
+    setDraftBio(data?.bio ?? "");
+    setIsEditingBio(false);
+  };
+
+  const handleSaveBio = () => {
+    const trimmed = draftBio.trim();
+    updateBio.mutate(trimmed, {
+      onSuccess: () => {
+        setIsEditingBio(false);
+      },
+    });
+  };
+
+  const overview: AboutRow[] = [
+    { icon: <Briefcase size={18} />, label: "Workplace", value: data?.work },
+    { icon: <GraduationCap size={18} />, label: "Education", value: data?.education },
+    { icon: <Home size={18} />, label: "Hometown", value: data?.hometown },
+    { icon: <MapPin size={18} />, label: "Current city", value: data?.location },
+    { icon: <Heart size={18} />, label: "Relationship status", value: data?.relationshipStatus },
+    { icon: <Cake size={18} />, label: "Birthday", value: data?.birthDay },
+  ];
+
+  const contact: AboutRow[] = [
+    { icon: <Mail size={18} />, label: "Email", value: data?.email },
+    { icon: <Phone size={18} />, label: "Phone", value: data?.phoneNumber },
+    { icon: <LinkIcon size={18} />, label: "Website", value: data?.website },
+  ];
+
+  const visibleOverview = overview.filter((r) => r.value || isOwnProfile);
+  const visibleContact = contact.filter((r) => r.value || isOwnProfile);
+  const hasNothing = visibleOverview.length === 0 && visibleContact.length === 0 && !data?.bio;
+
+  return (
+    <div className="flex flex-col gap-4 max-w-2xl">
+      {/* Bio Section */}
+      {isEditingBio ? (
+        <div className="bg-white dark:bg-[#242526] border border-black/5 dark:border-transparent rounded-xl px-4 py-4 flex flex-col gap-3 shadow-sm">
+          <textarea
+            value={draftBio}
+            onChange={(e) => setDraftBio(e.target.value)}
+            placeholder="Tell people a bit about yourself"
+            maxLength={150}
+            rows={3}
+            autoFocus
+            className="w-full bg-gray-50 dark:bg-[#3a3b3c] border border-black/10 dark:border-transparent rounded-lg px-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 outline-none resize-none focus:ring-1 focus:ring-blue-500 dark:focus:ring-[#4da3ff]/40 transition-all duration-150"
+          />
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-gray-400 dark:text-gray-500">{draftBio.length}/150</span>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={cancelEditing}
+                disabled={updateBio.isPending}
+                className="flex items-center gap-1.5 text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-black/5 dark:hover:bg-[#3a3b3c] text-sm font-semibold px-3 py-1.5 rounded-lg transition-colors duration-150 cursor-pointer disabled:opacity-50"
+              >
+                <X size={14} /> Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleSaveBio}
+                disabled={updateBio.isPending}
+                className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 dark:bg-[#1877f2] dark:hover:bg-[#1664d8] text-white text-sm font-semibold px-3 py-1.5 rounded-lg transition-colors duration-150 cursor-pointer disabled:opacity-50"
+              >
+                {updateBio.isPending && <Loader2 size={14} className="animate-spin" />}
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : data?.bio ? (
+        <div className="bg-white dark:bg-[#242526] border border-black/5 dark:border-transparent rounded-xl px-4 py-4 flex items-start justify-between gap-3 shadow-sm">
+          <p className="text-sm text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-line flex-1">{data.bio}</p>
+          {isOwnProfile && (
+            <button
+              type="button"
+              onClick={startEditing}
+              aria-label="Edit bio"
+              className="shrink-0 text-gray-400 hover:text-gray-700 dark:hover:text-white p-1.5 hover:bg-black/5 dark:hover:bg-[#3a3b3c] rounded-lg transition-colors duration-150 cursor-pointer"
+            >
+              <Pen size={14} />
+            </button>
+          )}
+        </div>
+      ) : isOwnProfile ? (
+        <div className="bg-white dark:bg-[#242526] border border-black/5 dark:border-transparent rounded-xl px-4 py-4 flex items-center justify-between gap-3 shadow-sm">
+          <p className="text-sm text-gray-400 dark:text-gray-400">Tell people a bit about yourself</p>
+          <button
+            type="button"
+            onClick={startEditing}
+            className="shrink-0 flex items-center gap-1.5 bg-black/5 hover:bg-black/10 dark:bg-[#3a3b3c] dark:hover:bg-[#4e4f50] text-gray-800 dark:text-gray-100 text-sm font-semibold px-3 py-1.5 rounded-lg transition-colors duration-150 cursor-pointer"
+          >
+            <Pen size={14} /> Add bio
+          </button>
+        </div>
+      ) : null}
+
+      {/* Overview Section */}
+      {visibleOverview.length > 0 && (
+        <div className="bg-white dark:bg-[#242526] border border-black/5 dark:border-transparent rounded-xl px-4 py-4 flex flex-col gap-1 shadow-sm">
+          <h3 className="font-bold text-base text-gray-900 dark:text-gray-100 mb-1 px-2">Overview</h3>
+          {visibleOverview.map((row) => (
+            <AboutRowItem key={row.label} icon={row.icon} label={row.label} value={row.value} />
+          ))}
+        </div>
+      )}
+
+      {/* Contact Section */}
+      {visibleContact.length > 0 && (
+        <div className="bg-white dark:bg-[#242526] border border-black/5 dark:border-transparent rounded-xl px-4 py-4 flex flex-col gap-1 shadow-sm">
+          <h3 className="font-bold text-base text-gray-900 dark:text-gray-100 mb-1 px-2">Contact info</h3>
+          {visibleContact.map((row) => (
+            <AboutRowItem key={row.label} icon={row.icon} label={row.label} value={row.value} />
+          ))}
+        </div>
+      )}
+
+      {/* Empty State */}
+      {hasNothing && !isEditingBio && (
+        <div className="bg-white dark:bg-[#242526] border border-black/5 dark:border-transparent rounded-xl px-4 py-14 flex flex-col items-center text-center gap-1 shadow-sm">
+          <p className="text-sm text-gray-400 dark:text-gray-400">No info to show</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default AboutPanel;
