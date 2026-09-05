@@ -123,7 +123,7 @@ const SearchResult = () => {
                         key={user.uid}
                         className="flex items-center justify-between p-3 rounded-2xl bg-[#242526] hover:bg-[#3a3b3c] border border-[#3a3b3c] transition-all duration-200 group"
                       >
-                        <div className="flex items-center gap-x-3.5 min-w-0">
+                       <div className="flex items-center gap-x-3.5 min-w-0">
     <Link
       href={`/User/UserProfile/${user.uid}`}
       className="relative w-12 h-12 shrink-0 rounded-full overflow-hidden ring-2 ring-black/10 dark:ring-white/20 group-hover:ring-black/20 dark:group-hover:ring-white/40 transition-all"
@@ -146,7 +146,6 @@ const SearchResult = () => {
       </p>
     </div>
   </div>
-                        </div>
 
                         {pending ? (
                           <button
