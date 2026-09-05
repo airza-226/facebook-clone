@@ -11,9 +11,15 @@ interface PhotosPanelProps {
 const PhotosPanel = ({ photos, isOwnProfile }: PhotosPanelProps) => {
   if (photos.length === 0) {
     return (
-      <div className="bg-[#242526] rounded-xl px-4 py-14 flex flex-col items-center text-center gap-2">
-        <ImageIcon size={28} className="text-gray-500" />
-        <p className="text-sm text-gray-400">
+      <div className="
+        bg-white dark:bg-[#242526] 
+        border border-black/5 dark:border-transparent 
+        rounded-xl px-4 py-14 
+        flex flex-col items-center text-center gap-2 
+        shadow-sm
+      ">
+        <ImageIcon size={28} className="text-gray-400 dark:text-gray-500" />
+        <p className="text-sm text-gray-500 dark:text-gray-400">
           {isOwnProfile ? "You haven't uploaded any photos yet" : "No photos to show"}
         </p>
       </div>
@@ -23,7 +29,16 @@ const PhotosPanel = ({ photos, isOwnProfile }: PhotosPanelProps) => {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
       {photos.map((photo, index) => (
-        <div key={index} className="relative aspect-square rounded-lg overflow-hidden bg-[#3a3b3c] cursor-pointer group">
+        <div 
+          key={`${photo}-${index}`} 
+          className="
+            relative aspect-square 
+            rounded-lg overflow-hidden 
+            bg-gray-100 dark:bg-[#3a3b3c] 
+            cursor-pointer group 
+            shadow-sm
+          "
+        >
           <Image
             src={photo || ProfileDefault}
             alt={`Photo ${index + 1}`}
