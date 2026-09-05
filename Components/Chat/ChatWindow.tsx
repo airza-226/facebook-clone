@@ -20,12 +20,13 @@ import SkeletonChat from "../cards/SkeletonChat";
 import { MessageRender } from "../common/MessageRender";
 import BubbleChat from "./BubbleChat";
 import Link from "next/link";
+
 interface ChatWindowProps {
   otherUser: userDataChat;
-  isLoading:boolean
+  isLoading: boolean;
 }
 
-const ChatWindow = ({ otherUser,isLoading }: ChatWindowProps) => {
+const ChatWindow = ({ otherUser, isLoading }: ChatWindowProps) => {
   const { userProfile, firebaseUser } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
@@ -37,12 +38,18 @@ const ChatWindow = ({ otherUser,isLoading }: ChatWindowProps) => {
 
   useEffect(() => {
     if (!conversationId || !firebaseUser) return;
-    const unsubscribe = listenToMessages(conversationId,firebaseUser?.uid,setMessages);
+    const unsubscribe = listenToMessages(
+      conversationId,
+      firebaseUser?.uid,
+      setMessages
+    );
     return () => unsubscribe();
-  }, [conversationId,firebaseUser]);
+  }, [conversationId, firebaseUser]);
+
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
   const handleSend = async () => {
     if (!inputValue.trim() || !userProfile || !firebaseUser) return;
     const content = inputValue.trim();
@@ -51,22 +58,27 @@ const ChatWindow = ({ otherUser,isLoading }: ChatWindowProps) => {
       senderId: firebaseUser.uid,
       receiverId: otherUser.uid,
       content,
-      senderName: `${userProfile.firstName} ${userProfile.lastName}`,
+      senderName: `${userProfile.firstName}${userProfile.lastName}`,
       senderPhoto: userProfile.profilePicture,
-      receiverName: `${otherUser.firstName} ${otherUser.lastName}`,
+      receiverName: `${otherUser.firstName}${otherUser.lastName}`,
       receiverPhoto: otherUser.profilePicture,
     });
   };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") handleSend();
   };
+
   return (
     <section
       aria-label="Chat conversation"
-      className="flex-1 h-[calc(100vh-3.5rem)] flex flex-col bg-[#18191a] min-w-0"
+      className="flex-1 h-[calc(100vh-3.5rem)] flex flex-col bg-white dark:bg-[#18191a] min-w-0 transition-colors"
     >
-      <header className="flex items-center justify-between px-4 py-2.5 border-b border-[#3a3b3c] shrink-0">
-        <Link href={`/User/UserProfile/${otherUser?.uid}`} className="flex items-center gap-3">
+      <header className="flex items-center justify-between px-4 py-2.5 border-b border-black/10 dark:border-white/10 shrink-0 transition-colors">
+        <Link
+          href={`/User/UserProfile/${otherUser?.uid}`}
+          className="flex items-center gap-3 group"
+        >
           <div className="relative w-10 h-10 shrink-0">
             <Image
               src={otherUser.profilePicture || Profile}
@@ -76,7 +88,7 @@ const ChatWindow = ({ otherUser,isLoading }: ChatWindowProps) => {
               className="rounded-full object-cover"
             />
           </div>
-          <p className="font-semibold text-[0.9375rem] text-gray-100 leading-tight">
+          <p className="font-semibold text-[0.9375rem] text-gray-900 dark:text-gray-100 leading-tight group-hover:underline">
             {otherUser.firstName} {otherUser.lastName}
           </p>
         </Link>
@@ -84,19 +96,19 @@ const ChatWindow = ({ otherUser,isLoading }: ChatWindowProps) => {
         <div className="flex items-center gap-1">
           <button
             aria-label="Voice call"
-            className="w-9 h-9 rounded-full flex items-center justify-center text-[#4da3ff] hover:bg-[#3a3b3c] transition-all duration-150 cursor-pointer"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-blue-600 dark:text-[#4da3ff] hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-150 cursor-pointer"
           >
             <Phone size={18} />
           </button>
           <button
             aria-label="Video call"
-            className="w-9 h-9 rounded-full flex items-center justify-center text-[#4da3ff] hover:bg-[#3a3b3c] transition-all duration-150 cursor-pointer"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-blue-600 dark:text-[#4da3ff] hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-150 cursor-pointer"
           >
             <Video size={18} />
           </button>
           <button
             aria-label="Conversation info"
-            className="w-9 h-9 rounded-full flex items-center justify-center text-[#4da3ff] hover:bg-[#3a3b3c] transition-all duration-150 cursor-pointer"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-blue-600 dark:text-[#4da3ff] hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-150 cursor-pointer"
           >
             <Info size={18} />
           </button>
@@ -113,16 +125,16 @@ const ChatWindow = ({ otherUser,isLoading }: ChatWindowProps) => {
         <div ref={bottomRef} />
       </div>
 
-      <div className="px-4 py-3 border-t border-[#3a3b3c] shrink-0">
+      <div className="px-4 py-3 border-t border-black/10 dark:border-white/10 shrink-0 transition-colors">
         <div className="flex items-center gap-2">
           <button
             aria-label="Attach photo"
-            className="w-9 h-9 rounded-full flex items-center justify-center text-[#4da3ff] hover:bg-[#3a3b3c] transition-all duration-150 cursor-pointer shrink-0"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-blue-600 dark:text-[#4da3ff] hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-150 cursor-pointer shrink-0"
           >
             <ImageIcon size={20} />
           </button>
 
-          <div className="flex-1 flex items-center gap-2 bg-[#3a3b3c] rounded-full pl-4 pr-1.5 py-1.5 focus-within:ring-1 focus-within:ring-[#1877f2]/40 transition-all duration-150">
+          <div className="flex-1 flex items-center gap-2 bg-black/5 dark:bg-white/10 rounded-full pl-4 pr-1.5 py-1.5 focus-within:ring-2 focus-within:ring-blue-500/50 transition-all duration-150">
             <input
               type="text"
               value={inputValue}
@@ -130,11 +142,11 @@ const ChatWindow = ({ otherUser,isLoading }: ChatWindowProps) => {
               onKeyDown={handleKeyDown}
               placeholder="Aa"
               aria-label="Type a message"
-              className="flex-1 bg-transparent outline-none text-[0.875rem] text-gray-100 placeholder:text-gray-400"
+              className="flex-1 bg-transparent outline-none text-[0.875rem] text-gray-900 dark:text-gray-100 placeholder:text-gray-500 dark:placeholder:text-gray-400"
             />
             <button
               aria-label="Add emoji"
-              className="w-7 h-7 rounded-full flex items-center justify-center text-[#4da3ff] hover:bg-[#4e4f50] transition-all duration-150 cursor-pointer shrink-0"
+              className="w-7 h-7 rounded-full flex items-center justify-center text-blue-600 dark:text-[#4da3ff] hover:bg-black/10 dark:hover:bg-white/20 transition-all duration-150 cursor-pointer shrink-0"
             >
               <Smile size={16} />
             </button>
@@ -143,7 +155,7 @@ const ChatWindow = ({ otherUser,isLoading }: ChatWindowProps) => {
           <button
             onClick={handleSend}
             aria-label={inputValue.trim() ? "Send message" : "Send like"}
-            className="w-9 h-9 rounded-full flex items-center justify-center text-[#4da3ff] hover:bg-[#3a3b3c] transition-all duration-150 cursor-pointer shrink-0"
+            className="w-9 h-9 rounded-full flex items-center justify-center text-blue-600 dark:text-[#4da3ff] hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-150 cursor-pointer shrink-0"
           >
             {inputValue.trim() ? <Send size={18} /> : <ThumbsUp size={18} />}
           </button>
