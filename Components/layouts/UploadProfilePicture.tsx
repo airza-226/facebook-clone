@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useRef, ChangeEvent } from "react";
+import React, { useState, useRef, ChangeEvent, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Camera, Check, RefreshCw, X } from "lucide-react";
+import { Camera, Check, RefreshCw, Loader2 } from "lucide-react";
 import DefaultProfile from "@/public/download (1).jpg"; 
 import { useAuth } from "@/Context/AuthContext";
 import { updateUserProfilePicture } from "@/services/User/updateProfilePicture";
@@ -17,46 +17,59 @@ const UploadProfilePicture = () => {
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+  // Cleanup URL object untuk mencegah memory leak
+  useEffect(() => {
+    return () => {
+      if (previewUrl) {
+        URL.revokeObjectURL(previewUrl);
+      }
+    };
+  }, [previewUrl]);
+
   const handleSelectFileClick = () => {
     fileInputRef.current?.click();
   };
+
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setSelectedFile(file);
+      // Hapus URL sebelumnya jika ada untuk efisiensi memori
+      if (previewUrl) URL.revokeObjectURL(previewUrl);
       setPreviewUrl(URL.createObjectURL(file));
     }
   };
 
-  const handleConfirm = async()=>{
-    if(!selectedFile || !userProfile?.uid) return
-    setIsUploading(true) 
+  const handleConfirm = async () => {
+    if (!selectedFile || !userProfile?.uid) return;
+    setIsUploading(true); 
     try {
-      await updateUserProfilePicture(userProfile.uid, selectedFile)
-      if(refreshProfile) {
-        await refreshProfile()
+      await updateUserProfilePicture(userProfile.uid, selectedFile);
+      if (refreshProfile) {
+        await refreshProfile();
       }
-      router.push("/User/HomePage")
+      router.push("/User/HomePage");
     } catch (error) {
-      console.error("cannot update profile picture",error)
-    }finally{
-      setIsUploading(false)
+      console.error("Cannot update profile picture", error);
+    } finally {
+      setIsUploading(false);
     }
-  }
+  };
 
   const handleLater = () => {
     router.push("/User/HomePage");
   };
 
-
   return (
-    <div className="min-h-screen w-full bg-[#18191a] text-gray-100 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-[#242526] border border-[#3a3b3c] rounded-2xl p-6 shadow-2xl flex flex-col items-center gap-6">
+    <div className="min-h-screen w-full bg-white dark:bg-[#18191a] text-gray-900 dark:text-gray-100 flex items-center justify-center p-4 transition-colors">
+      <div className="w-full max-w-md bg-white dark:bg-[#242526] border border-black/10 dark:border-[#3a3b3c] rounded-2xl p-6 shadow-xl dark:shadow-2xl flex flex-col items-center gap-6">
+        
         {/* Title */}
         <div className="text-center space-y-1">
-          <h1 className="text-xl font-bold text-white">Profile Picture</h1>
-          <p className="text-xs text-gray-400">Select Your Photo</p>
+          <h1 className="text-xl font-bold text-gray-900 dark:text-white">Profile Picture</h1>
+          <p className="text-xs text-gray-500 dark:text-gray-400">Select Your Photo</p>
         </div>
+
         <input
           type="file"
           ref={fileInputRef}
@@ -65,12 +78,15 @@ const UploadProfilePicture = () => {
           className="hidden"
         />
 
-        <div className="relative w-40 h-40 rounded-full overflow-hidden ring-4 ring-[#3a3b3c] bg-[#18191a] flex items-center justify-center group">
+        {/* Avatar Container */}
+        <div className="relative w-40 h-40 rounded-full overflow-hidden ring-4 ring-black/10 dark:ring-[#3a3b3c] bg-gray-100 dark:bg-[#18191a] flex items-center justify-center group">
           {previewUrl ? (
-            <img
+            <Image
               src={previewUrl}
               alt="Preview"
-              className="w-full h-full object-cover"
+              fill
+              unoptimized // Wajib dipakai jika menggunakan Next.js Image dengan blob/object URL
+              className="object-cover"
             />
           ) : (
             <Image
@@ -100,7 +116,7 @@ const UploadProfilePicture = () => {
               <button
                 type="button"
                 onClick={handleLater}
-                className="flex-1 py-2.5 px-4 rounded-xl bg-[#3a3b3c] hover:bg-[#4e4f50] text-gray-200 text-sm font-semibold transition-all duration-150 cursor-pointer text-center"
+                className="flex-1 py-2.5 px-4 rounded-xl bg-black/5 hover:bg-black/10 dark:bg-[#3a3b3c] dark:hover:bg-[#4e4f50] text-gray-700 dark:text-gray-200 text-sm font-semibold transition-all duration-150 cursor-pointer text-center"
               >
                 Later
               </button>
@@ -108,7 +124,7 @@ const UploadProfilePicture = () => {
               <button
                 type="button"
                 onClick={handleSelectFileClick}
-                className="flex-1 py-2.5 px-4 rounded-xl bg-[#0064d1] hover:bg-[#0072ec] text-white text-sm font-semibold transition-all duration-150 cursor-pointer text-center flex items-center justify-center gap-2 shadow-md"
+                className="flex-1 py-2.5 px-4 rounded-xl bg-[#0084ff] hover:bg-[#006dd6] text-white text-sm font-semibold transition-all duration-150 cursor-pointer text-center flex items-center justify-center gap-2 shadow-md"
               >
                 <Camera size={18} />
                 Select Photo
@@ -120,7 +136,7 @@ const UploadProfilePicture = () => {
                 type="button"
                 onClick={handleSelectFileClick}
                 disabled={isUploading}
-                className="flex-1 py-2.5 px-4 rounded-xl bg-[#3a3b3c] hover:bg-[#4e4f50] disabled:opacity-50 text-gray-200 text-sm font-semibold transition-all duration-150 cursor-pointer text-center flex items-center justify-center gap-2"
+                className="flex-1 py-2.5 px-4 rounded-xl bg-black/5 hover:bg-black/10 dark:bg-[#3a3b3c] dark:hover:bg-[#4e4f50] disabled:opacity-50 text-gray-700 dark:text-gray-200 text-sm font-semibold transition-all duration-150 cursor-pointer text-center flex items-center justify-center gap-2"
               >
                 <RefreshCw size={16} />
                 Change Photo
@@ -130,10 +146,13 @@ const UploadProfilePicture = () => {
                 type="button"
                 onClick={handleConfirm}
                 disabled={isUploading}
-                className="flex-1 py-2.5 px-4 rounded-xl bg-[#0064d1] hover:bg-[#0072ec] disabled:opacity-50 text-white text-sm font-semibold transition-all duration-150 cursor-pointer text-center flex items-center justify-center gap-2 shadow-md"
+                className="flex-1 py-2.5 px-4 rounded-xl bg-[#0084ff] hover:bg-[#006dd6] disabled:opacity-50 text-white text-sm font-semibold transition-all duration-150 cursor-pointer text-center flex items-center justify-center gap-2 shadow-md"
               >
                 {isUploading ? (
-                  <span>Uploading...</span>
+                  <>
+                    <Loader2 size={18} className="animate-spin" />
+                    <span>Uploading...</span>
+                  </>
                 ) : (
                   <>
                     <Check size={18} />
@@ -144,6 +163,7 @@ const UploadProfilePicture = () => {
             </>
           )}
         </div>
+
       </div>
     </div>
   );

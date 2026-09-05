@@ -7,7 +7,7 @@ interface StoryCardProps {
   variant?: "create" | "view";
   username?: string;
   imageSrc?: string;
-  avatarSrc?: string; // Opsional: Avatar khusus untuk varian view jika berbeda dengan background
+  avatarSrc?: string; 
 }
 
 const StoryCard = ({
@@ -34,9 +34,7 @@ const StoryCard = ({
       aria-label={isCreate ? "Create a new story" : `${username}'s story`}
     >
       {isCreate ? (
-        // --- VARIAN CREATE STORY ---
         <>
-          {/* Bagian Atas: Gambar/Foto Profil */}
           <div className="h-[70%] w-full overflow-hidden bg-black/5 dark:bg-white/10 relative">
             <Image
               src={imageSrc ?? Profile}
@@ -46,15 +44,11 @@ const StoryCard = ({
               className="object-cover group-hover:scale-105 transition-transform duration-300"
             />
           </div>
-
-          {/* Bagian Bawah: Label Teks */}
           <div className="absolute bottom-0 inset-x-0 h-[30%] flex items-center justify-center bg-white dark:bg-[#242526] transition-colors">
             <p className="text-[0.75rem] font-semibold text-gray-900 dark:text-gray-100 text-center leading-tight px-2 line-clamp-2">
               {username}
             </p>
           </div>
-
-          {/* Tombol Plus di Tengah Batas Atas-Bawah */}
           <button
             aria-label="Create story"
             className="
@@ -77,9 +71,7 @@ const StoryCard = ({
           </button>
         </>
       ) : (
-        // --- VARIAN VIEW STORY (Full Background Ala FB) ---
         <>
-          {/* Background Gambar Full */}
           <div className="absolute inset-0 w-full h-full overflow-hidden bg-black/10">
             <Image
               src={imageSrc ?? Profile}
@@ -88,11 +80,8 @@ const StoryCard = ({
               sizes="(max-width: 640px) 25vw, 112px"
               className="object-cover group-hover:scale-105 transition-transform duration-300"
             />
-            {/* Overlay gradasi hitam tipis di bagian bawah & atas supaya teks terbaca jelas */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60 pointer-events-none" />
           </div>
-
-          {/* Avatar Pengguna di Pojok Kiri Atas */}
           <div className="absolute top-3 left-3 w-9 h-9 rounded-full overflow-hidden ring-4 ring-blue-600 dark:ring-[#1877f2] shrink-0 shadow-sm z-10">
             <Image
               src={avatarSrc ?? imageSrc ?? Profile}
@@ -102,8 +91,6 @@ const StoryCard = ({
               className="object-cover"
             />
           </div>
-
-          {/* Nama Pengguna di Bagian Bawah Story */}
           <div className="absolute bottom-2 inset-x-2 z-10">
             <p className="text-[0.75rem] font-semibold text-white text-left leading-tight drop-shadow-sm line-clamp-2">
               {username}
