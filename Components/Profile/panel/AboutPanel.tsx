@@ -40,7 +40,6 @@ const AboutPanel = ({ data, isOwnProfile }: AboutPanelProps) => {
   const [isEditingBio, setIsEditingBio] = useState(false);
   const [draftBio, setDraftBio] = useState(data?.bio ?? "");
   const updateBio = useUpdateBio(data?.uid ?? "");
-  const {firebaseUser} = useAuth()
   const startEditing = () => {
     setDraftBio(data?.bio ?? "");
     setIsEditingBio(true);

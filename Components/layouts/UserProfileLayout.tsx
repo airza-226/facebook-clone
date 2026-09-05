@@ -18,28 +18,24 @@ import PhotosPanel from "@/Components/Profile/panel/PhotosPanel";
 import MorePanel from "@/Components/Profile/panel/MorePanel";
 import FriendListItem from "@/Components/friends/FriendsList";
 import SkeletonPostCard from "@/Components/cards/SkeletonCard";
-
 const navTabs = ["Posts", "About", "Photos", "More"];
 interface UserProfileLayoutProps {
   data: userData | null;
   post: Post[];
   isLoading: boolean;
 }
-
 const UserProfileLayout = ({ data, post, isLoading }: UserProfileLayoutProps) => {
   const [activeTab, setActiveTab] = useState<number>(0);
   const { firebaseUser } = useAuth();
   const router = useRouter();
   const isOwnProfile = firebaseUser?.uid === data?.uid;
   const isPending = Boolean(firebaseUser?.uid && data?.isPending?.includes(firebaseUser.uid));
-
   const getValidImage = (photoUrl: string | undefined | null, fallback: any) => {
     if (!photoUrl || typeof photoUrl !== "string" || photoUrl.trim() === "") {
       return fallback;
     }
     return photoUrl;
   };
-
   const handleChatClick = () => {
     if (!firebaseUser) {
       router.push("/Login");
@@ -47,15 +43,11 @@ const UserProfileLayout = ({ data, post, isLoading }: UserProfileLayoutProps) =>
     }
     router.push(`/User/HomePage/Chat/${data?.uid}`);
   };
-
   const userAvatar = getValidImage(data?.profilePicture, ProfileDefault);
   const userBanner = getValidImage(data?.bannerPhoto, ProfileBannerDefault);
-
   const friendsList: string[] = data?.friends || [];
   const userPhotos: string[] = Array.isArray(data?.profilePicture) ? data.profilePicture : [];
-
   const { data: friendsProfiles = [], isLoading: friendsLoading } = useUsersByIds(friendsList);
-
   const panelMap: Record<string, React.ReactNode> = {
     Posts: (
       <PostsPanel
@@ -193,8 +185,6 @@ const UserProfileLayout = ({ data, post, isLoading }: UserProfileLayoutProps) =>
                 </span>
               </div>
             </div>
-
-            {/* Highlights Section */}
             <div className="bg-white dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-4 py-4 flex flex-col gap-3 shadow-sm">
               <h2 className="font-bold text-base">Highlights</h2>
               <button className="w-full py-2 bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 active:scale-[0.98] transition-all duration-150 rounded-lg cursor-pointer">
