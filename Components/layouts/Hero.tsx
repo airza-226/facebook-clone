@@ -6,12 +6,12 @@ import { Post, userData } from '@/types'
 
 interface HeroProps {
   initialPosts: Post[]
-user: Record<string, userData>;
+  user: Record<string, userData>;
 }
 
-const Hero = ({ initialPosts,user }:HeroProps) => {
+const Hero = ({ initialPosts, user }: HeroProps) => {
   return (
-    <div className="w-full min-h-screen bg-[#18191a] text-gray-100 overflow-x-hidden">
+    <div className="w-full min-h-screen text-gray-900 dark:text-gray-100 overflow-x-hidden">
       <div className="w-full pt-3">
 
         <SidebarNav />
