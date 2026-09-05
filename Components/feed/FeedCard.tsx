@@ -20,7 +20,7 @@ const FeedCard = ({
     <section aria-label="Sponsored content">
       <h2 className="
         text-[0.8125rem] font-semibold
-        text-gray-500
+        text-gray-500 dark:text-gray-400
         leading-tight mb-3 px-1
       ">
         Sponsored
@@ -32,31 +32,32 @@ const FeedCard = ({
         className="
           flex gap-3 items-start
           p-2 rounded-xl
-          hover:bg-[#3a3b3c]
+          hover:bg-black/5 dark:hover:bg-white/10
           transition-colors duration-150
           group
         "
       >
         <div className="
           relative
-          w-30 h-30
+          w-28 h-28
           shrink-0
           rounded-xl overflow-hidden
-          bg-[#3a3b3c]
+          bg-black/5 dark:bg-white/10
         ">
           <Image
             src={Profile}
             alt={title}
             fill
-            sizes="120px"
+            sizes="112px"
             className="object-cover group-hover:scale-105 transition-transform duration-200"
           />
         </div>
 
-        <div className="flex flex-col gap-1.5 pt-1 min-w-0">
+        <div className="flex flex-col gap-1.5 pt-1 min-w-0 flex-1">
           <p className="
             text-[0.9375rem] font-semibold
-            text-gray-100 group-hover:text-white
+            text-gray-900 dark:text-gray-100 
+            group-hover:text-blue-600 dark:group-hover:text-[#4da3ff]
             leading-snug
             line-clamp-2
             transition-colors duration-150
@@ -65,7 +66,7 @@ const FeedCard = ({
           </p>
           <p className="
             text-[0.75rem] font-normal
-            text-gray-400
+            text-gray-500 dark:text-gray-400
             leading-relaxed
             line-clamp-2
           ">
@@ -73,7 +74,7 @@ const FeedCard = ({
           </p>
           <span className="
             text-[0.6875rem] font-medium
-            text-gray-500
+            text-gray-400 dark:text-gray-500
             leading-none mt-0.5
           ">
             {sponsor}
