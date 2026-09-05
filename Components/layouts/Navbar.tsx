@@ -34,7 +34,6 @@ const Navbar = () => {
           transition-colors
         "
       >
-        {/* Bagian Kiri: Logo & Search Bar */}
         <div className="flex items-center gap-x-2">
           <Link
             href={firebaseUser ? '/User/HomePage' : '/Login'}

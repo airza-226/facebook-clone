@@ -72,7 +72,7 @@ const ChatWindow = ({ otherUser, isLoading }: ChatWindowProps) => {
   return (
     <section
       aria-label="Chat conversation"
-      className="flex-1 h-[calc(100vh-3.5rem)] flex flex-col bg-white dark:bg-[#18191a] min-w-0 transition-colors"
+      className="flex-1 h-[calc(100vh-3.5rem)] flex flex-col bg-white dark:bg-white/5 min-w-0 transition-colors"
     >
       <header className="flex items-center justify-between px-4 py-2.5 border-b border-black/10 dark:border-white/10 shrink-0 transition-colors">
         <Link

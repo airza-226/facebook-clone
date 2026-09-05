@@ -80,7 +80,7 @@ const StoryCard = ({
               sizes="(max-width: 640px) 25vw, 112px"
               className="object-cover group-hover:scale-105 transition-transform duration-300"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60 pointer-events-none" />
+            <div className="absolute inset-0 bg-linear-to-b from-black/30 via-transparent to-black/60 pointer-events-none" />
           </div>
           <div className="absolute top-3 left-3 w-9 h-9 rounded-full overflow-hidden ring-4 ring-blue-600 dark:ring-[#1877f2] shrink-0 shadow-sm z-10">
             <Image

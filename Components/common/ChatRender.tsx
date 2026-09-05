@@ -1,5 +1,6 @@
 import { DataChatProps } from "@/types";
 import React from "react";
+
 export function ChatRender<T>({
   isLoading,
   skeleton,
@@ -7,10 +8,15 @@ export function ChatRender<T>({
   renderItem,
 }: DataChatProps<T>) {
   if (isLoading) {
-    {Array.from({ length: 4 }).map(() => (
-      <>{skeleton}</>
-    ))}
+    return (
+      <>
+        {Array.from({ length: 4 }).map((_, i) => (
+          <React.Fragment key={i}>{skeleton}</React.Fragment>
+        ))}
+      </>
+    );
   }
+
   if (conversation.length === 0) {
     return (
       <p className="text-center text-gray-500 text-[0.8125rem] py-8">

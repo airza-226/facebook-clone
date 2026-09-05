@@ -12,25 +12,32 @@ import { ChatItem } from "./ChatItem";
 interface ChatListProps {
   activeConversationId?: string | null;
   onSelectConversation?: (conv: Conversation) => void;
-  isLoading?: boolean;
 }
 
-const ChatList = ({
-  activeConversationId,
-  onSelectConversation,
-  isLoading,
-}: ChatListProps) => {
+const ChatList = ({ activeConversationId, onSelectConversation }: ChatListProps) => {
   const { firebaseUser } = useAuth();
   const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+
   const handleChatClick = (uid: string) => {
     if (!firebaseUser) return;
     router.push(`/User/HomePage/Chat/${uid}`);
   };
+
   useEffect(() => {
     const userId = firebaseUser?.uid;
-    if (!userId) return;
-    const unsubscribe = listenToConversations(userId, setConversations);
+    if (!userId) {
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(true);
+    const unsubscribe = listenToConversations(userId, (data) => {
+      setConversations(data);
+      setIsLoading(false);
+    });
+
     return () => {
       if (typeof unsubscribe === "function") {
         unsubscribe();
@@ -69,7 +76,7 @@ const ChatList = ({
 
       <ul className={`${isLoading ? "space-y-1.5" : "space-y-1"} px-2 overflow-y-auto scrollbar-hide flex-1 pb-2`}>
         <ChatRender<Conversation>
-          isLoading={Boolean(isLoading)}
+          isLoading={isLoading}
           skeleton={<SkeletonChat />}
           conversation={conversations}
           renderItem={(conv) => (

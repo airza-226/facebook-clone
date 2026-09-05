@@ -7,6 +7,7 @@ import { userData, Conversation, userDataChat } from "@/types";
 import { useAuth } from "@/Context/AuthContext";
 import { fetchUserProfile } from "@/services/User/fetchUserProfile";
 import { useRouter } from "next/navigation";
+import ChatWindowSkeleton from "../cards/ChatWindowsSkeleton";
 
 interface ChatContainerProps {
   params: Promise<{ uid: string }>;
@@ -49,11 +50,11 @@ const ChatContainer = ({ params }: ChatContainerProps) => {
       try {
         const data = await fetchUserProfile(uid);
         if (!isCanceled) {
-          setIsLoading(true)
+          setIsLoading(true);
           if (data) {
             setFetchedUser(data);
             setFetchedForUid(uid);
-            setIsLoading(false)
+            setIsLoading(false);
           } else {
             setFetchError(true);
           }
@@ -61,8 +62,8 @@ const ChatContainer = ({ params }: ChatContainerProps) => {
       } catch (error) {
         if (!isCanceled) setFetchError(true);
         console.error("Error fetching user profile:", error);
-      }finally {
- setIsLoading(false);
+      } finally {
+        setIsLoading(false);
       }
     };
     load();
@@ -84,11 +85,9 @@ const ChatContainer = ({ params }: ChatContainerProps) => {
         isLoading={isLoading}
       />
       {isLoadingUser ? (
-        <div className="flex-1 flex items-center justify-center text-gray-400">
-          Loading chat...
-        </div>
+        <ChatWindowSkeleton />
       ) : otherUser ? (
-        <ChatWindow otherUser={otherUser} isLoading={isLoading}/>
+        <ChatWindow otherUser={otherUser} isLoading={isLoading} />
       ) : (
         <ChatEmptyState />
       )}

@@ -1,8 +1,18 @@
 "use client";
 import { useState } from "react";
 import {
-  Briefcase, GraduationCap, MapPin, Home, Heart,
-  Mail, Phone, Link as LinkIcon, Cake, Pen, X, Loader2,
+  Briefcase,
+  GraduationCap,
+  MapPin,
+  Home,
+  Heart,
+  Mail,
+  Phone,
+  Link as LinkIcon,
+  Cake,
+  Pen,
+  X,
+  Loader2,
 } from "lucide-react";
 import { userData } from "@/types";
 import { useUpdateBio } from "@/Hooks/useUpdateBio";
@@ -21,13 +31,19 @@ interface AboutRow {
 const AboutRowItem = ({ icon, label, value }: AboutRow) => {
   return (
     <div className="flex items-center gap-3 px-2 py-2.5 hover:bg-black/5 dark:hover:bg-[#3a3b3c] rounded-lg transition-colors duration-150 group">
-      <span className="text-gray-400 dark:text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200 shrink-0 transition-colors">{icon}</span>
+      <span className="text-gray-400 dark:text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200 shrink-0 transition-colors">
+        {icon}
+      </span>
       {value ? (
         <span className="text-sm text-gray-800 dark:text-gray-200 leading-snug">
-          {value} <span className="text-gray-400 dark:text-gray-500">· {label}</span>
+          {value}{" "}
+          <span className="text-gray-400 dark:text-gray-500">· {label}</span>
         </span>
       ) : (
-        <button type="button" className="text-sm text-blue-600 dark:text-[#4da3ff] hover:underline font-medium cursor-pointer">
+        <button
+          type="button"
+          className="text-sm text-blue-600 dark:text-[#4da3ff] hover:underline font-medium cursor-pointer"
+        >
           Add {label.toLowerCase()}
         </button>
       )}
@@ -38,7 +54,7 @@ const AboutRowItem = ({ icon, label, value }: AboutRow) => {
 const AboutPanel = ({ data, isOwnProfile }: AboutPanelProps) => {
   const [isEditingBio, setIsEditingBio] = useState(false);
   const [draftBio, setDraftBio] = useState(data?.bio ?? "");
-  
+
   // Hook mutasi yang otomatis menangani pembaruan state lokal secara optimis / re-fetch
   const updateBio = useUpdateBio(data?.uid ?? "");
 
@@ -63,10 +79,22 @@ const AboutPanel = ({ data, isOwnProfile }: AboutPanelProps) => {
 
   const overview: AboutRow[] = [
     { icon: <Briefcase size={18} />, label: "Workplace", value: data?.work },
-    { icon: <GraduationCap size={18} />, label: "Education", value: data?.education },
+    {
+      icon: <GraduationCap size={18} />,
+      label: "Education",
+      value: data?.education,
+    },
     { icon: <Home size={18} />, label: "Hometown", value: data?.hometown },
-    { icon: <MapPin size={18} />, label: "Current city", value: data?.location },
-    { icon: <Heart size={18} />, label: "Relationship status", value: data?.relationshipStatus },
+    {
+      icon: <MapPin size={18} />,
+      label: "Current city",
+      value: data?.location,
+    },
+    {
+      icon: <Heart size={18} />,
+      label: "Relationship status",
+      value: data?.relationshipStatus,
+    },
     { icon: <Cake size={18} />, label: "Birthday", value: data?.birthDay },
   ];
 
@@ -78,11 +106,11 @@ const AboutPanel = ({ data, isOwnProfile }: AboutPanelProps) => {
 
   const visibleOverview = overview.filter((r) => r.value || isOwnProfile);
   const visibleContact = contact.filter((r) => r.value || isOwnProfile);
-  const hasNothing = visibleOverview.length === 0 && visibleContact.length === 0 && !data?.bio;
+  const hasNothing =
+    visibleOverview.length === 0 && visibleContact.length === 0 && !data?.bio;
 
   return (
     <div className="flex flex-col gap-4 max-w-2xl">
-      {/* Bio Section */}
       {isEditingBio ? (
         <div className="bg-white dark:bg-[#242526] border border-black/5 dark:border-transparent rounded-xl px-4 py-4 flex flex-col gap-3 shadow-sm">
           <textarea
@@ -95,7 +123,9 @@ const AboutPanel = ({ data, isOwnProfile }: AboutPanelProps) => {
             className="w-full bg-gray-50 dark:bg-[#3a3b3c] border border-black/10 dark:border-transparent rounded-lg px-3 py-2.5 text-sm text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 outline-none resize-none focus:ring-1 focus:ring-blue-500 dark:focus:ring-[#4da3ff]/40 transition-all duration-150"
           />
           <div className="flex items-center justify-between">
-            <span className="text-xs text-gray-400 dark:text-gray-500">{draftBio.length}/150</span>
+            <span className="text-xs text-gray-400 dark:text-gray-500">
+              {draftBio.length}/150
+            </span>
             <div className="flex items-center gap-2">
               <button
                 type="button"
@@ -111,7 +141,9 @@ const AboutPanel = ({ data, isOwnProfile }: AboutPanelProps) => {
                 disabled={updateBio.isPending}
                 className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 dark:bg-[#1877f2] dark:hover:bg-[#1664d8] text-white text-sm font-semibold px-3 py-1.5 rounded-lg transition-colors duration-150 cursor-pointer disabled:opacity-50"
               >
-                {updateBio.isPending && <Loader2 size={14} className="animate-spin" />}
+                {updateBio.isPending && (
+                  <Loader2 size={14} className="animate-spin" />
+                )}
                 Save
               </button>
             </div>
@@ -119,7 +151,9 @@ const AboutPanel = ({ data, isOwnProfile }: AboutPanelProps) => {
         </div>
       ) : data?.bio ? (
         <div className="bg-white dark:bg-[#242526] border border-black/5 dark:border-transparent rounded-xl px-4 py-4 flex items-start justify-between gap-3 shadow-sm">
-          <p className="text-sm text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-line flex-1">{data.bio}</p>
+          <p className="text-sm text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-line flex-1">
+            {data.bio}
+          </p>
           {isOwnProfile && (
             <button
               type="button"
@@ -133,7 +167,9 @@ const AboutPanel = ({ data, isOwnProfile }: AboutPanelProps) => {
         </div>
       ) : isOwnProfile ? (
         <div className="bg-white dark:bg-[#242526] border border-black/5 dark:border-transparent rounded-xl px-4 py-4 flex items-center justify-between gap-3 shadow-sm">
-          <p className="text-sm text-gray-400 dark:text-gray-400">Tell people a bit about yourself</p>
+          <p className="text-sm text-gray-400 dark:text-gray-400">
+            Tell people a bit about yourself
+          </p>
           <button
             type="button"
             onClick={startEditing}
@@ -143,31 +179,41 @@ const AboutPanel = ({ data, isOwnProfile }: AboutPanelProps) => {
           </button>
         </div>
       ) : null}
-
-      {/* Overview Section */}
       {visibleOverview.length > 0 && (
         <div className="bg-white dark:bg-[#242526] border border-black/5 dark:border-transparent rounded-xl px-4 py-4 flex flex-col gap-1 shadow-sm">
-          <h3 className="font-bold text-base text-gray-900 dark:text-gray-100 mb-1 px-2">Overview</h3>
+          <h3 className="font-bold text-base text-gray-900 dark:text-gray-100 mb-1 px-2">
+            Overview
+          </h3>
           {visibleOverview.map((row) => (
-            <AboutRowItem key={row.label} icon={row.icon} label={row.label} value={row.value} />
+            <AboutRowItem
+              key={row.label}
+              icon={row.icon}
+              label={row.label}
+              value={row.value}
+            />
           ))}
         </div>
       )}
-
-      {/* Contact Section */}
       {visibleContact.length > 0 && (
         <div className="bg-white dark:bg-[#242526] border border-black/5 dark:border-transparent rounded-xl px-4 py-4 flex flex-col gap-1 shadow-sm">
-          <h3 className="font-bold text-base text-gray-900 dark:text-gray-100 mb-1 px-2">Contact info</h3>
+          <h3 className="font-bold text-base text-gray-900 dark:text-gray-100 mb-1 px-2">
+            Contact info
+          </h3>
           {visibleContact.map((row) => (
-            <AboutRowItem key={row.label} icon={row.icon} label={row.label} value={row.value} />
+            <AboutRowItem
+              key={row.label}
+              icon={row.icon}
+              label={row.label}
+              value={row.value}
+            />
           ))}
         </div>
       )}
-
-      {/* Empty State */}
       {hasNothing && !isEditingBio && (
         <div className="bg-white dark:bg-[#242526] border border-black/5 dark:border-transparent rounded-xl px-4 py-14 flex flex-col items-center text-center gap-1 shadow-sm">
-          <p className="text-sm text-gray-400 dark:text-gray-400">No info to show</p>
+          <p className="text-sm text-gray-400 dark:text-gray-400">
+            No info to show
+          </p>
         </div>
       )}
     </div>
