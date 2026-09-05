@@ -82,7 +82,6 @@ const ChatContainer = ({ params }: ChatContainerProps) => {
       <ChatList
         activeConversationId={activeConversation?.id ?? null}
         onSelectConversation={setActiveConversation}
-        isLoading={isLoading}
       />
       {isLoadingUser ? (
         <ChatWindowSkeleton />
