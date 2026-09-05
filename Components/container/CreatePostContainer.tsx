@@ -33,7 +33,7 @@ const CreatePostSection = () => {
   return (
     <section
       aria-label="Create a post"
-      className="bg-[#242526] border border-[#3a3b3c] rounded-xl px-4 py-3 flex flex-col gap-3"
+      className="bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 rounded-xl px-4 py-3 flex flex-col gap-3"
     >
       <input
         type="file"
@@ -50,7 +50,7 @@ const CreatePostSection = () => {
             src={userProfile?.profilePicture || Profile}
             fill
             sizes="40px"
-            className="rounded-full object-cover ring-2 ring-[#3a3b3c]"
+            className="rounded-full object-cover ring-2 ring-black/10 dark:ring-white/10"
             loading="eager"
           />
         </div>
@@ -58,15 +58,16 @@ const CreatePostSection = () => {
           aria-label="Create a post"
           onClick={() => setIsOpen(true)}
           className="
-            flex-1 bg-[#3a3b3c] hover:bg-[#4e4f50]
+            flex-1 bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 border border-black/10 dark:border-white/10
             rounded-full px-4 py-2.5 text-left
-            text-[0.9375rem] text-gray-400
+            text-[0.9375rem] text-gray-500 dark:text-gray-400
             transition-colors duration-150 cursor-pointer
           "
         >
           What&apos;s on your mind?
         </button>
       </div>
+
       {isOpen && (
         <CreatePost 
           OnClose={handleCloseModal} 
@@ -74,15 +75,15 @@ const CreatePostSection = () => {
         />
       )}
 
-      <div className="border-t border-[#3a3b3c]" />
+      <div className="border-t border-black/10 dark:border-white/10" />
 
       <div className="flex items-center justify-around">
         <button 
           type="button"
           onClick={() => setIsOpen(true)}
-          className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-400 hover:text-gray-200 hover:bg-[#3a3b3c] transition-colors duration-150 cursor-pointer"
+          className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-150 cursor-pointer"
         >
-          <Play size={20} className="text-red-400" />
+          <Play size={20} className="text-red-500 dark:text-red-400" />
           <span className="text-[0.875rem] font-semibold hidden sm:block">
             Live video
           </span>
@@ -91,9 +92,9 @@ const CreatePostSection = () => {
         <button
           type="button"
           onClick={handlePhotoClick}
-          className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-400 hover:text-gray-200 hover:bg-[#3a3b3c] transition-colors duration-150 cursor-pointer"
+          className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-150 cursor-pointer"
         >
-          <span className="text-green-400 text-lg leading-none">🖼</span>
+          <span className="text-green-500 dark:text-green-400 text-lg leading-none">🖼</span>
           <span className="text-[0.875rem] font-semibold hidden sm:block">
             Photo/video
           </span>
@@ -102,9 +103,9 @@ const CreatePostSection = () => {
         <button 
           type="button"
           onClick={() => setIsOpen(true)}
-          className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-400 hover:text-gray-200 hover:bg-[#3a3b3c] transition-colors duration-150 cursor-pointer"
+          className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-150 cursor-pointer"
         >
-          <span className="text-yellow-400 text-lg leading-none">😊</span>
+          <span className="text-yellow-500 dark:text-yellow-400 text-lg leading-none">😊</span>
           <span className="text-[0.875rem] font-semibold hidden sm:block">
             Feeling/activity
           </span>
