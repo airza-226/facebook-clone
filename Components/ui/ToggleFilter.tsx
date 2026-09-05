@@ -32,7 +32,7 @@ const ToggleFilter = ({
       `}
     >
       {label && (
-        <span className="text-[0.875rem] font-normal text-gray-300 leading-tight">
+        <span className="text-[0.875rem] font-normal text-gray-700 dark:text-gray-300 leading-tight">
           {label}
         </span>
       )}
@@ -55,11 +55,11 @@ const ToggleFilter = ({
             w-11 h-6
             rounded-full
             transition-colors duration-200 ease-in-out
-            ${checked ? "bg-[#1877f2]" : "bg-[#3a3b3c]"}
+            ${checked ? "bg-blue-600" : "bg-black/20 dark:bg-white/20"}
             peer-focus-visible:ring-2
-            peer-focus-visible:ring-[#1877f2]/50
+            peer-focus-visible:ring-blue-600/50
             peer-focus-visible:ring-offset-2
-            peer-focus-visible:ring-offset-[#242526]
+            peer-focus-visible:ring-offset-white dark:peer-focus-visible:ring-offset-neutral-900
           `}
         />
 

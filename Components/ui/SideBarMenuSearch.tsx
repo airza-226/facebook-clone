@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react"
 import Profile from "@/public/download (1).jpg"
-import Image from 'next/image'
+import Image from "next/image"
 import ToggleFilter from "@/Components/ui/ToggleFilter"
 import { ChevronDown, Users2, Hash, MapPin, Newspaper } from 'lucide-react'
 
@@ -24,24 +24,24 @@ const SideBarMenuSearch = () => {
         hidden md:flex flex-col gap-y-4
         w-70 lg:w-[320px]
         px-4 py-5
-        bg-[#242526]
-        border-r border-y border-[#3a3b3c]
+        bg-white dark:bg-white/5
+        border-r border-y border-black/10 dark:border-white/10
         rounded-br-2xl rounded-tr-2xl
         fixed left-0 top-14
         h-fit max-h-[calc(100vh-3.5rem)]
         overflow-y-auto scrollbar-hide
         z-20
-        shadow-2xl
-        transition-all
+        shadow-xl
+        transition-colors
       "
     >
       <header>
-        <h1 className="text-[1.25rem] font-bold leading-tight text-gray-100">
+        <h1 className="text-[1.25rem] font-bold leading-tight text-gray-900 dark:text-gray-100">
           Search Results
         </h1>
       </header>
 
-      <div className="border-b border-[#3a3b3c] w-full" />
+      <div className="border-b border-black/10 dark:border-white/10 w-full" />
 
       <div className="flex flex-col gap-y-5">
 
@@ -61,7 +61,7 @@ const SideBarMenuSearch = () => {
             className="
               w-full flex items-center gap-3
               p-2.5 rounded-xl
-              bg-[#3a3b3c] hover:bg-[#4e4f50]
+              bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20
               transition-colors duration-150
               cursor-pointer
               group
@@ -76,7 +76,7 @@ const SideBarMenuSearch = () => {
                 className="rounded-full object-cover"
               />
             </div>
-            <span className="text-[0.9375rem] font-semibold text-gray-100 group-hover:text-white leading-tight">
+            <span className="text-[0.9375rem] font-semibold text-gray-900 dark:text-gray-100 group-hover:text-black dark:group-hover:text-white leading-tight">
               All
             </span>
           </button>
@@ -90,7 +90,7 @@ const SideBarMenuSearch = () => {
                 key={filter.label}
                 className="flex items-center justify-between gap-x-3"
               >
-                <label className="text-[0.875rem] font-normal text-gray-300 leading-tight cursor-pointer">
+                <label className="text-[0.875rem] font-normal text-gray-700 dark:text-gray-300 leading-tight cursor-pointer">
                   {filter.label}
                 </label>
                 <ToggleFilter />
@@ -104,8 +104,8 @@ const SideBarMenuSearch = () => {
                 className="
                   w-full flex items-center justify-between
                   py-1 px-1
-                  text-[0.875rem] font-normal text-gray-300
-                  hover:text-white
+                  text-[0.875rem] font-normal text-gray-700 dark:text-gray-300
+                  hover:text-gray-900 dark:hover:text-white
                   transition-colors duration-150
                   cursor-pointer
                   group
@@ -114,14 +114,14 @@ const SideBarMenuSearch = () => {
                 <span>Date Posted</span>
                 <ChevronDown
                   size={16}
-                  className="text-gray-400 group-hover:text-white transition-all duration-200"
+                  className="text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-all duration-200"
                 />
               </button>
             </div>
           </div>
         </section>
 
-        <div className="border-b border-[#3a3b3c] w-full" />
+        <div className="border-b border-black/10 dark:border-white/10 w-full" />
 
         {/* ── Categories ── */}
         <nav aria-label="Search categories">
@@ -135,13 +135,13 @@ const SideBarMenuSearch = () => {
                     flex items-center gap-3
                     px-2.5 py-2.5
                     rounded-xl
-                    text-gray-300 hover:text-white
-                    hover:bg-[#3a3b3c]
+                    text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white
+                    hover:bg-black/5 dark:hover:bg-white/10
                     transition-colors duration-150
                     group
                   "
                 >
-                  <span className="text-gray-400 group-hover:text-white transition-colors duration-150 shrink-0">
+                  <span className="text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-150 shrink-0">
                     {cat.icon}
                   </span>
                   <span className="text-[0.9375rem] font-semibold leading-tight">

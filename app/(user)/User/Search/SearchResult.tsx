@@ -121,31 +121,31 @@ const SearchResult = () => {
                     return (
                       <li
                         key={user.uid}
-                        className="flex items-center justify-between p-3 rounded-2xl bg-[#242526] hover:bg-[#3a3b3c] border border-[#3a3b3c] transition-all duration-200 group"
+                       className="flex items-center justify-between p-3 rounded-2xl bg-white dark:bg-white/5 hover:bg-black/2 dark:hover:bg-white/10 border border-black/10 dark:border-white/10 transition-all duration-200 group shadow-sm"
                       >
-                       <div className="flex items-center gap-x-3.5 min-w-0">
-    <Link
-      href={`/User/UserProfile/${user.uid}`}
-      className="relative w-12 h-12 shrink-0 rounded-full overflow-hidden ring-2 ring-black/10 dark:ring-white/20 group-hover:ring-black/20 dark:group-hover:ring-white/40 transition-all"
-    >
-      <Image
-        src={user.profilePicture || Profile}
-        alt={user.firstName || "User Avatar"}
-        fill
-        sizes="48px"
-        className="object-cover"
-      />
-    </Link>
+                        <div className="flex items-center gap-x-3.5 min-w-0">
+                          <Link
+                            href={`/User/UserProfile/${user.uid}`}
+                            className="relative w-12 h-12 shrink-0 rounded-full overflow-hidden ring-2 ring-black/10 dark:ring-white/20 group-hover:ring-black/20 dark:group-hover:ring-white/40 transition-all"
+                          >
+                            <Image
+                              src={user.profilePicture || Profile}
+                              alt={user.firstName || "User Avatar"}
+                              fill
+                              sizes="48px"
+                              className="object-cover"
+                            />
+                          </Link>
 
-    <div className="flex flex-col min-w-0">
-      <h3 className="font-semibold text-[0.95rem] text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-white truncate leading-snug transition-colors">
-        {user.firstName} {user.lastName || ""}
-      </h3>
-      <p className="text-[0.775rem] text-gray-500 dark:text-gray-400 truncate leading-tight font-normal">
-        {user.bio || "User Profile"}
-      </p>
-    </div>
-  </div>
+                          <div className="flex flex-col min-w-0">
+                            <h3 className="font-semibold text-[0.95rem] text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-white truncate leading-snug transition-colors">
+                              {user.firstName} {user.lastName || ""}
+                            </h3>
+                            <p className="text-[0.775rem] text-gray-500 dark:text-gray-400 truncate leading-tight font-normal">
+                              {user.bio || "User Profile"}
+                            </p>
+                          </div>
+                        </div>
 
                         {pending ? (
                           <button
