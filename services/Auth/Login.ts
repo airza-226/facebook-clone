@@ -32,11 +32,7 @@ const executeLogin = async (
   err: (errors: Record<string, string>) => void,
 ) => {
   try {
-    const userCredential = await signInWithEmailAndPassword(
-      auth,
-      data.email,
-      data.password,
-    );
+    await signInWithEmailAndPassword(auth, data.email, data.password);
     console.log("success");
     return true;
   } catch (error: any) {
